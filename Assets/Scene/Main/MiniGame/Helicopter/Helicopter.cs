@@ -9,7 +9,6 @@ public class Helicopter : BaseGame {
 
     public override void Start()
     {
-        //isLeft = true;
         if (isLeft)
             offset = -4.4f;
         else
@@ -23,12 +22,11 @@ public class Helicopter : BaseGame {
     }
 
     public override void Update()
-    {
-        if (plane.transform.position.x < -4.4 + offset)
-            gameover = true;
-        
+    {        
         timer += Time.deltaTime;
-        if (timer > 2)
+
+        // Generate a new block
+        if (timer > 1)
         {
             var b = Instantiate(block);
             b.transform.Translate(offset, Random.Range(-3f, 3f), 0);

@@ -6,14 +6,13 @@ public class PlaneController : MonoBehaviour {
     float posOffset;
     Rigidbody2D rb;
 
-    // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         posOffset = transform.position.x;
     }
 	
-	// Update is called once per frame
 	void Update () {
+        // Move plane up
         if (Input.GetKey(KeyCode.UpArrow))
         {
             rb.AddForce(new Vector2(0, force));
