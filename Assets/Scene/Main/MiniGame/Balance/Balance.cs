@@ -27,7 +27,6 @@ public class Balance : BaseGame
     {
         Destroy(plantform);
         Destroy(ball);
-        //Destroy(this);
         Destroy(gameObject);
     }
 }

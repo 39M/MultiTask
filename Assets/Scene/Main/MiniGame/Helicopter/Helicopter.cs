@@ -38,7 +38,6 @@ public class Helicopter : BaseGame
         gameover = true;
         Destroy(limit);
         Destroy(plane);
-        //Destroy(this);
         Destroy(gameObject);
     }
 }
