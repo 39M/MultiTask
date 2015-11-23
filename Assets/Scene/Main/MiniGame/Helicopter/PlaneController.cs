@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlaneController : MonoBehaviour {
+public class PlaneController : MonoBehaviour
+{
     float force = 5f;
     float posOffset;
     Rigidbody2D rb;
 
-    void Start () {
+    void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
         posOffset = transform.position.x;
     }
-	
-	void Update () {
+
+    void Update()
+    {
         // Move plane up
         if (Input.GetKey(KeyCode.UpArrow))
         {

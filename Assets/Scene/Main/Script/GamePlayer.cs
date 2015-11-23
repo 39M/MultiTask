@@ -16,14 +16,14 @@ public class GamePlayer : MonoBehaviour
     public GameObject[] Games;
     // All games' type(class), match the Games above
     System.Type[] GameType = { typeof(Balance), typeof(Helicopter), };
-    
+
     // Left and right gameobject
     GameObject LeftGamePlayer, RightGamePlayer;
     // Left and right game class
     BaseGame LeftGame, RightGame;
     // Left and right game type index
     int LeftGameType, RightGameType;
-    
+
     // Timer using for switch game
     float Timer = 0;
     // Game over flag
