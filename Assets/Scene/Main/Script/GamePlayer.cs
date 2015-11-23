@@ -15,7 +15,7 @@ public class GamePlayer : MonoBehaviour
     // All games' gameobject, add new game in inspector
     public GameObject[] Games;
     // All games' type(class), match the Games above
-    System.Type[] GameType = { typeof(Balance), typeof(Helicopter), };
+    System.Type[] GameType = { typeof(Balance), typeof(Helicopter), typeof(JumpOverBlock), };
 
     // Left and right gameobject
     GameObject LeftGamePlayer, RightGamePlayer;

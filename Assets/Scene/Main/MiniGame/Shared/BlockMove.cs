@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BlockMove : MonoBehaviour
 {
-    public Helicopter gameController;
+    public BaseGame gameController;
 
     void Start()
     {
@@ -21,8 +21,8 @@ public class BlockMove : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        // When collide with plane, game over
-        if (other.gameObject.tag == "Plane")
+        // When collide with hero, game over
+        if (other.gameObject.tag == "Hero")
             gameController.gameover = true;
     }
 }
