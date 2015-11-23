@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Helicopter : BaseGame {
+public class Helicopter : BaseGame
+{
     public GameObject limit;
     public GameObject plane;
     public GameObject block;
@@ -9,10 +10,7 @@ public class Helicopter : BaseGame {
 
     public override void Start()
     {
-        if (isLeft)
-            offset = -4.4f;
-        else
-            offset = 4.4f;
+        base.Start();
 
         limit = Instantiate(limit);
         limit.transform.Translate(offset, 0, 0);
@@ -22,7 +20,7 @@ public class Helicopter : BaseGame {
     }
 
     public override void Update()
-    {        
+    {
         timer += Time.deltaTime;
 
         // Generate a new block
@@ -40,6 +38,7 @@ public class Helicopter : BaseGame {
         gameover = true;
         Destroy(limit);
         Destroy(plane);
-        Destroy(this);        
+        //Destroy(this);
+        Destroy(gameObject);
     }
 }
