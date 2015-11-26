@@ -25,7 +25,11 @@ public class JumpOverBlock : BaseGame
         if (timer > 1.5f)
         {
             var b = Instantiate(block);
-            b.transform.Translate(offset, 0, 0);
+            // If at right, move block behind the left cover
+            if (isLeft)
+                b.transform.Translate(offset, 0, 0);
+            else
+                b.transform.Translate(offset, 0, 5);
             b.GetComponent<BlockMove>().gameController = this;
             timer = 0;
         }
