@@ -24,6 +24,16 @@ public class GamePlayer : MonoBehaviour
     // Left and right game type index
     int LeftGameType, RightGameType;
 
+    // Game switch rate
+    float switchTime = 5f;
+
+    // Cover for fade
+    public GameObject fadeCover;
+    float fadeTime = 0.4f;
+    GameObject LeftCover, RightCover;
+    SpriteRenderer LeftCoverRenderer, RightCoverRenderer;
+    Color LeftCoverColor, RightCoverColor;
+
     // Timer using for switch game
     float Timer = 0;
     // Game over flag
@@ -35,6 +45,17 @@ public class GamePlayer : MonoBehaviour
         //Debug.Log(Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, 10)));
         //Debug.Log(Camera.main.WorldToViewportPoint(new Vector3(100, 100, 0)));
 
+        // Init fade cover
+        LeftCover = Instantiate(fadeCover);
+        LeftCover.transform.Translate(-10.25f, 0, 0);
+        LeftCoverRenderer = LeftCover.GetComponent<SpriteRenderer>();
+        LeftCoverColor = LeftCoverRenderer.color;
+        RightCover = Instantiate(fadeCover);
+        RightCover.transform.Translate(10.25f, 0, 0);
+        RightCoverRenderer = RightCover.GetComponent<SpriteRenderer>();
+        RightCoverColor = RightCoverRenderer.color;
+
+        // Init game
         LeftGameType = Random.Range(0, Games.Length);
         RightGameType = Random.Range(0, Games.Length);
         StartGame(true, LeftGameType);
@@ -54,14 +75,33 @@ public class GamePlayer : MonoBehaviour
             GameOver();
         }
 
-        // Switch game every ?? seconds
-        if (Timer > 5f)
+        // Switch game by switchTime
+        if (Timer > switchTime)
         {
             LeftGameType = Random.Range(0, Games.Length);
             RightGameType = Random.Range(0, Games.Length);
             SwitchGame(true, LeftGameType);
             SwitchGame(false, RightGameType);
             Timer = 0;
+        }
+
+        // Fade in
+        if (Timer < fadeTime)
+        {
+            LeftCoverColor.a -= 1.0f / fadeTime * Time.deltaTime;
+            RightCoverColor.a -= 1.0f / fadeTime * Time.deltaTime;
+            LeftCoverRenderer.color = LeftCoverColor;
+            RightCoverRenderer.color = RightCoverColor;
+        }
+
+
+        // Fade out
+        if (Timer > switchTime - fadeTime)
+        {
+            LeftCoverColor.a += 1.0f / fadeTime * Time.deltaTime;
+            RightCoverColor.a += 1.0f / fadeTime * Time.deltaTime;
+            LeftCoverRenderer.color = LeftCoverColor;
+            RightCoverRenderer.color = RightCoverColor;
         }
     }
 
