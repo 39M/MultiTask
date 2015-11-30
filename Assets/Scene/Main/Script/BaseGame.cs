@@ -9,14 +9,35 @@ public abstract class BaseGame : MonoBehaviour
     public bool isLeft;
     // Display position offset
     public float offset;
+    // World edge
+    public float startX, endX;
+    public float startY, endY;
 
     // Initialization
     public virtual void Start()
     {
+        Vector3 startVector, endVector;
         if (isLeft)
-            offset = -4.4f;
+        {
+            startVector = new Vector3(0, 0);
+            endVector = new Vector3(0.5f, 1);
+        }
         else
-            offset = 4.4f;
+        {
+            startVector = new Vector3(0.5f, 0);
+            endVector = new Vector3(1, 1);
+        }
+        startVector = Camera.main.ViewportToWorldPoint(startVector);
+        startX = startVector.x;
+        startY = startVector.y;
+        endVector = Camera.main.ViewportToWorldPoint(endVector);
+        endX = endVector.x;
+        endY = endVector.y;
+
+        offset = (endX - startX) / 2.0f;
+
+        if (isLeft)
+            offset = -offset;
     }
 
     // Update is called once per frame
