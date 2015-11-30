@@ -35,9 +35,14 @@ public class GamePlayer : MonoBehaviour
     Color LeftCoverColor, RightCoverColor;
 
     // Timer using for switch game
-    float Timer = 0;
+    float switchTimer = 0;
     // Game over flag
     bool gameover = false;
+    // Game over timer
+    float gameoverTimer = 0;
+
+    // Score timer
+    float scoreTimer = 0;
 
     // Initialization
     void Start()
@@ -68,42 +73,50 @@ public class GamePlayer : MonoBehaviour
         if (gameover)
             return;
 
-        Timer += Time.deltaTime;
+        switchTimer += Time.deltaTime;
 
         if (LeftGame.isGameOver() || RightGame.isGameOver())
         {
-            GameOver();
+            if (gameoverTimer < fadeTime)
+            {
+                // Fade out
+                gameoverTimer += Time.deltaTime;
+                Fade(1);
+            }
+            else
+            {
+                GameOver();
+            }
         }
 
         // Switch game by switchTime
-        if (Timer > switchTime)
+        if (switchTimer > switchTime)
         {
             LeftGameType = Random.Range(0, Games.Length);
             RightGameType = Random.Range(0, Games.Length);
             SwitchGame(true, LeftGameType);
             SwitchGame(false, RightGameType);
-            Timer = 0;
+            switchTimer = 0;
         }
 
         // Fade in
-        if (Timer < fadeTime)
-        {
-            LeftCoverColor.a -= 1.0f / fadeTime * Time.deltaTime;
-            RightCoverColor.a -= 1.0f / fadeTime * Time.deltaTime;
-            LeftCoverRenderer.color = LeftCoverColor;
-            RightCoverRenderer.color = RightCoverColor;
-        }
-
-
+        if (switchTimer < fadeTime)
+            Fade(-1);
+        
         // Fade out
-        if (Timer > switchTime - fadeTime)
-        {
-            LeftCoverColor.a += 1.0f / fadeTime * Time.deltaTime;
-            RightCoverColor.a += 1.0f / fadeTime * Time.deltaTime;
-            LeftCoverRenderer.color = LeftCoverColor;
-            RightCoverRenderer.color = RightCoverColor;
-        }
+        if (switchTimer > switchTime - fadeTime)
+            Fade(1);
     }
+
+    // Fade
+    void Fade(int direction)
+    {
+        LeftCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
+        RightCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
+        LeftCoverRenderer.color = LeftCoverColor;
+        RightCoverRenderer.color = RightCoverColor;
+    }
+
 
     // Switch left or right game to a new game by ID
     void SwitchGame(bool isLeft, int ID)
@@ -148,6 +161,7 @@ public class GamePlayer : MonoBehaviour
     void GameOver()
     {
         gameover = true;
+        scoreTimer = Time.time;
         EndGame(true);
         EndGame(false);
     }
