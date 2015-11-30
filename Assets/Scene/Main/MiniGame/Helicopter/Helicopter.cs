@@ -27,7 +27,7 @@ public class Helicopter : BaseGame
         if (timer > 1)
         {
             var b = Instantiate(block);
-            b.transform.Translate(offset, Random.Range(-3f, 3f), 0);
+            b.transform.Translate(offset, Random.Range(-4f, 4f), 0);
             b.GetComponent<BlockMove>().gameController = this;
             timer = 0;
         }
