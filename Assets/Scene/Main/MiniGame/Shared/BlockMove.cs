@@ -31,7 +31,7 @@ public class BlockMove : MonoBehaviour
         {
             blockColor.a -= 1.0f / fadeTime * Time.deltaTime;
             render.color = blockColor;
-        }            
+        }
 
         // Fade in
         if (!fullyShow)
@@ -44,7 +44,7 @@ public class BlockMove : MonoBehaviour
         else
         {
             fullyShow = true;
-        }        
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)

@@ -15,7 +15,7 @@ public class GamePlayer : MonoBehaviour
     // All games' gameobject, add new game in inspector
     public GameObject[] Games;
     // All games' type(class), match the Games above
-    System.Type[] GameType = { typeof(Balance), typeof(Helicopter), typeof(JumpOverBlock), };
+    System.Type[] GameType = { typeof(Balance), typeof(Helicopter), typeof(JumpOverBlock), typeof(AvoidArrow) };
 
     // Left and right gameobject
     GameObject LeftGamePlayer, RightGamePlayer;
@@ -102,7 +102,7 @@ public class GamePlayer : MonoBehaviour
         // Fade in
         if (switchTimer < fadeTime)
             Fade(-1);
-        
+
         // Fade out
         if (switchTimer > switchTime - fadeTime)
             Fade(1);
