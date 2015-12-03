@@ -62,7 +62,7 @@ public class GamePlayer : MonoBehaviour
 
         // Init game
         LeftGameType = Random.Range(0, Games.Length);
-        RightGameType = Random.Range(0, Games.Length);
+        RightGameType = NextGameType(LeftGameType);
         StartGame(true, LeftGameType);
         StartGame(false, RightGameType);
     }
@@ -92,8 +92,8 @@ public class GamePlayer : MonoBehaviour
         // Switch game by switchTime
         if (switchTimer > switchTime)
         {
-            LeftGameType = Random.Range(0, Games.Length);
-            RightGameType = Random.Range(0, Games.Length);
+            LeftGameType = NextGameType(LeftGameType);
+            RightGameType = NextGameType(RightGameType, LeftGameType);
             SwitchGame(true, LeftGameType);
             SwitchGame(false, RightGameType);
             switchTimer = 0;
@@ -108,6 +108,17 @@ public class GamePlayer : MonoBehaviour
             Fade(1);
     }
 
+    // Get next game type
+    int NextGameType(int gameTypeNow, int gameTypeAnother = -1)
+    {
+        int nextGameType;
+        do
+        {
+            nextGameType = Random.Range(0, Games.Length);
+        } while (nextGameType == gameTypeNow || nextGameType == gameTypeAnother);
+        return nextGameType;
+    }
+
     // Fade
     void Fade(int direction)
     {
@@ -116,7 +127,6 @@ public class GamePlayer : MonoBehaviour
         LeftCoverRenderer.color = LeftCoverColor;
         RightCoverRenderer.color = RightCoverColor;
     }
-
 
     // Switch left or right game to a new game by ID
     void SwitchGame(bool isLeft, int ID)
