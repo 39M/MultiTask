@@ -10,7 +10,7 @@ public class Balance : BaseGame
     {
         base.Start();
 
-        plantform = Instantiate(plantform);
+        plantform = (GameObject)Instantiate(plantform, new Vector3(offset, 0), plantform.transform.rotation);
         plantform.GetComponent<HingeJoint2D>().connectedAnchor += new Vector2(offset, 0);
 
         ball = Instantiate(ball);
