@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AvoidArrow : BaseGame
+public class EatCube : BaseGame
 {
     public GameObject hero;
-    public GameObject arrow;
+    public GameObject food;
     public GameObject ceilingLimit;
     public GameObject floorLimit;
     public GameObject leftLimit;
     public GameObject rightLimit;
     GameObject edgeLimit;
 
-    float timer = 0;
+    float foodScalehalf = 0.5f;
+    float timer = 0f;
 
-
-    // Use this for initialization
     public override void Start()
     {
         base.Start();
@@ -30,7 +29,6 @@ public class AvoidArrow : BaseGame
 
         hero = Instantiate(hero);
         hero.transform.Translate(offset, 0, 0);
-        hero.GetComponent<AvoidArrowHeroController>().gameController = this;
     }
 
     public override void Update()
@@ -38,34 +36,17 @@ public class AvoidArrow : BaseGame
         if (gameover)
             return;
 
-        if (timer < 1f)
+        if (timer < 2.5f)
         {
             timer += Time.deltaTime;
         }
         else
         {
-            timer = 0;
-
-            Vector3 arrowPos;
-            switch (Random.Range(0, 4))
-            {
-                case 0:
-                    arrowPos = new Vector3(Random.Range(startX, endX), startY);
-                    break;
-                case 1:
-                    arrowPos = new Vector3(Random.Range(startX, endX), endY);
-                    break;
-                case 2:
-                    arrowPos = new Vector3(startX, Random.Range(startY, endY));
-                    break;
-                default:
-                    arrowPos = new Vector3(endX, Random.Range(startY, endY));
-                    break;
-            }
-
-            ArrowMove arrowMoveScript = ((GameObject)Instantiate(arrow, arrowPos, arrow.transform.rotation)).GetComponent<ArrowMove>();
-            arrowMoveScript.hero = hero;
-            arrowMoveScript.gameController = this;
+            timer = 0f;
+            Vector3 foodPos = new Vector3(Random.Range(startX + foodScalehalf, endX - foodScalehalf),
+                Random.Range(startY + foodScalehalf, endY - foodScalehalf));
+            FoodController fc = ((GameObject)Instantiate(food, foodPos, food.transform.rotation)).GetComponent<FoodController>();
+            fc.gameController = this;
         }
     }
 

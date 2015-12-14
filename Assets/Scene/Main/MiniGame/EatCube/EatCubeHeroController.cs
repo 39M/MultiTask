@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AvoidArrowHeroController : MonoBehaviour
+public class EatCubeHeroController : MonoBehaviour
 {
     public float speed;
-    public BaseGame gameController;
     Rigidbody2D rb;
     //float scale = 0.25f;
 
@@ -51,7 +50,9 @@ public class AvoidArrowHeroController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         // When collide with block, game over
-        if (other.gameObject.tag == "Block")
-            gameController.gameover = true;
+        if (other.gameObject.tag == "Food")
+        {
+            other.transform.SendMessage("Eaten");
+        }
     }
 }
