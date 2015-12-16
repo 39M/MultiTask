@@ -51,4 +51,11 @@ public abstract class BaseGame : MonoBehaviour
 
     // Remove
     public abstract void End();
+
+    public GameObject CreateGameObject(GameObject go)
+    {
+        var t = Instantiate(go);
+        t.transform.Translate(offset, 0, 0);
+        return t;
+    }
 }
