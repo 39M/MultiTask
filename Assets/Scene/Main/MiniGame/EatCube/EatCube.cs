@@ -12,7 +12,7 @@ public class EatCube : BaseGame
     GameObject edgeLimit;
 
     float foodScalehalf = 0.5f;
-    float timer = 0f;
+    float timer = 2.5f;
 
     public override void Start()
     {

@@ -64,5 +64,14 @@ public class FoodController : MonoBehaviour
     void Eaten()
     {
         eaten = true;
-    }    
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // When collide with block, game over
+        if (other.gameObject.CompareTag("Hero"))
+        {
+            Eaten();
+        }
+    }
 }

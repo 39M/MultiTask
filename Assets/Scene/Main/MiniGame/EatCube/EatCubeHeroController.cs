@@ -47,12 +47,12 @@ public class EatCubeHeroController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        // When collide with block, game over
-        if (other.gameObject.tag == "Food")
-        {
-            other.transform.SendMessage("Eaten");
-        }
-    }
+    //void OnCollisionEnter2D(Collision2D other)
+    //{
+    //    // When collide with block, game over
+    //    if (other.gameObject.tag == "Food")
+    //    {
+    //        other.transform.SendMessage("Eaten");
+    //    }
+    //}
 }
