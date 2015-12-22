@@ -64,6 +64,7 @@ public class FoodController : MonoBehaviour
     void Eaten()
     {
         eaten = true;
+        fullyShow = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)

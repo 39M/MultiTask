@@ -40,7 +40,7 @@ public class EatCubeHeroController : BaseController
             rb.AddForce(new Vector2(0, -speed));
         }
 
-        if (Input.GetKey(keyDown))
+        if (Input.GetKey(keyRight))
         {
             //if (currentPos.x + speed + scale < gameController.endX)
             //transform.Translate(speed, 0, 0);

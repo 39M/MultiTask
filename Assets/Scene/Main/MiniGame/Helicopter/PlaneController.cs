@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlaneController : BaseController
 {
-    float force = 5f;
+    float force = 2.5f;
     Rigidbody2D rb;
 
     public override void Start()
