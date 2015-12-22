@@ -67,6 +67,7 @@ public abstract class BaseGame : MonoBehaviour
     {
         var t = Instantiate(limit);
         t.transform.Translate(offset, pos * ((endY - startY) / 2 + 0.03f), 0);
+        t.transform.localScale = new Vector3((endX - startX) * 100f, 6, 1);
         return t;
     }
 
@@ -74,6 +75,7 @@ public abstract class BaseGame : MonoBehaviour
     {
         var t = Instantiate(limit);
         t.transform.Translate((isLeft ? -1 : 1) * (endX - startX + 0.03f), 0, 0);
+        t.transform.localScale = new Vector3(6, (endY - startY) * 100f, 1);
         return t;
     }
 }
