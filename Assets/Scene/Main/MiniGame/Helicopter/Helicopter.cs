@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Helicopter : BaseGame
 {
-    public GameObject limit;
+    public GameObject ceilingLimit;
+    public GameObject floorLimit;
     public GameObject plane;
     public GameObject block;
     float timer = 0;
@@ -12,7 +13,8 @@ public class Helicopter : BaseGame
     {
         base.Start();
 
-        limit = CreateGameObject(limit);
+        ceilingLimit = CreateHorizontalLimit(ceilingLimit, 1);
+        floorLimit = CreateHorizontalLimit(floorLimit, -1);
 
         plane = CreateGameObject(plane);
         plane.GetComponent<PlaneController>().isLeft = isLeft;
@@ -35,7 +37,8 @@ public class Helicopter : BaseGame
     public override void End()
     {
         gameover = true;
-        Destroy(limit);
+        Destroy(floorLimit);
+        Destroy(ceilingLimit);
         Destroy(plane);
         Destroy(gameObject);
     }

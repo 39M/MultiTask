@@ -61,4 +61,19 @@ public abstract class BaseGame : MonoBehaviour
         t.transform.Translate(offset, 0, 0);
         return t;
     }
+
+    // Pos: -1=>floor, 1=>ceiling
+    public GameObject CreateHorizontalLimit(GameObject limit, int pos)
+    {
+        var t = Instantiate(limit);
+        t.transform.Translate(offset, pos * ((endY - startY) / 2 + 0.03f), 0);
+        return t;
+    }
+
+    public GameObject CreateVertitalLimit(GameObject limit)
+    {
+        var t = Instantiate(limit);
+        t.transform.Translate((isLeft ? -1 : 1) * (endX - startX + 0.03f), 0, 0);
+        return t;
+    }
 }

@@ -7,9 +7,7 @@ public class EatCube : BaseGame
     public GameObject food;
     public GameObject ceilingLimit;
     public GameObject floorLimit;
-    public GameObject leftLimit;
-    public GameObject rightLimit;
-    GameObject edgeLimit;
+    public GameObject edgeLimit;
 
     float foodScalehalf = 0.5f;
     float timer = 2.5f;
@@ -18,12 +16,9 @@ public class EatCube : BaseGame
     {
         base.Start();
 
-        ceilingLimit = CreateGameObject(ceilingLimit);
-        floorLimit = CreateGameObject(floorLimit);
-        if (isLeft)
-            edgeLimit = Instantiate(leftLimit);
-        else
-            edgeLimit = Instantiate(rightLimit);
+        ceilingLimit = CreateHorizontalLimit(ceilingLimit, 1);
+        floorLimit = CreateHorizontalLimit(floorLimit, -1);
+        edgeLimit = CreateVertitalLimit(edgeLimit);
 
         hero = CreateGameObject(hero);
         hero.GetComponent<EatCubeHeroController>().isLeft = isLeft;

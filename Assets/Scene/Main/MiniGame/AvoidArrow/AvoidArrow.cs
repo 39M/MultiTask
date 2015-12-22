@@ -7,9 +7,7 @@ public class AvoidArrow : BaseGame
     public GameObject arrow;
     public GameObject ceilingLimit;
     public GameObject floorLimit;
-    public GameObject leftLimit;
-    public GameObject rightLimit;
-    GameObject edgeLimit;
+    public GameObject edgeLimit;
 
     float timer = 0;
 
@@ -19,12 +17,9 @@ public class AvoidArrow : BaseGame
     {
         base.Start();
 
-        ceilingLimit = CreateGameObject(ceilingLimit);
-        floorLimit = CreateGameObject(floorLimit);
-        if (isLeft)
-            edgeLimit = Instantiate(leftLimit);
-        else
-            edgeLimit = Instantiate(rightLimit);
+        ceilingLimit = CreateHorizontalLimit(ceilingLimit, 1);
+        floorLimit = CreateHorizontalLimit(floorLimit, -1);
+        edgeLimit = CreateVertitalLimit(edgeLimit);
 
         hero = CreateGameObject(hero);
         var heroController = hero.GetComponent<AvoidArrowHeroController>();
