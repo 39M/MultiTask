@@ -22,15 +22,9 @@ public class KeepItUp : BaseGame
             edgeLimit = Instantiate(rightLimit);
 
         guard = CreateGameObject(guard);
+        guard.GetComponent<GuardController>().isLeft = isLeft;
         ball = CreateGameObject(ball);
         ball.GetComponent<KeepItUpBallMove>().gameController = this;
-
-    }
-
-    // Update is called once per frame
-    public override void Update()
-    {
-
     }
 
     public override void End()

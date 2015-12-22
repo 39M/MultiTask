@@ -19,18 +19,17 @@ public class AvoidArrow : BaseGame
     {
         base.Start();
 
-        ceilingLimit = Instantiate(ceilingLimit);
-        ceilingLimit.transform.Translate(offset, 0, 0);
-        floorLimit = Instantiate(floorLimit);
-        floorLimit.transform.Translate(offset, 0, 0);
+        ceilingLimit = CreateGameObject(ceilingLimit);
+        floorLimit = CreateGameObject(floorLimit);
         if (isLeft)
             edgeLimit = Instantiate(leftLimit);
         else
             edgeLimit = Instantiate(rightLimit);
 
-        hero = Instantiate(hero);
-        hero.transform.Translate(offset, 0, 0);
-        hero.GetComponent<AvoidArrowHeroController>().gameController = this;
+        hero = CreateGameObject(hero);
+        var heroController = hero.GetComponent<AvoidArrowHeroController>();
+        heroController.gameController = this;
+        heroController.isLeft = isLeft;
     }
 
     public override void Update()

@@ -12,9 +12,9 @@ public class Balance : BaseGame
 
         plantform = (GameObject)Instantiate(plantform, new Vector3(offset, 0), plantform.transform.rotation);
         plantform.GetComponent<HingeJoint2D>().connectedAnchor += new Vector2(offset, 0);
+        plantform.GetComponent<PlantformController>().isLeft = isLeft;
 
-        ball = Instantiate(ball);
-        ball.transform.Translate(offset, 0.1f, 0);
+        ball = CreateGameObject(ball);
     }
 
     public override void Update()

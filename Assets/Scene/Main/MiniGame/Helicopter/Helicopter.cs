@@ -12,11 +12,10 @@ public class Helicopter : BaseGame
     {
         base.Start();
 
-        limit = Instantiate(limit);
-        limit.transform.Translate(offset, 0, 0);
+        limit = CreateGameObject(limit);
 
-        plane = Instantiate(plane);
-        plane.transform.Translate(offset, 0, 0);
+        plane = CreateGameObject(plane);
+        plane.GetComponent<PlaneController>().isLeft = isLeft;
     }
 
     public override void Update()

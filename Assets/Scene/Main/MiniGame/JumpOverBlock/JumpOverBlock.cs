@@ -11,11 +11,10 @@ public class JumpOverBlock : BaseGame
     {
         base.Start();
 
-        rect = Instantiate(rect);
-        rect.transform.Translate(offset, 0, 0);
+        rect = CreateGameObject(rect);
+        rect.GetComponent<RectController>().isLeft = isLeft;
 
-        land = Instantiate(land);
-        land.transform.Translate(offset, 0, 0);
+        land = CreateGameObject(land);
     }
 
     public override void Update()

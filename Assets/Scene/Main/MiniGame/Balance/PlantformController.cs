@@ -1,26 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlantformController : MonoBehaviour
+public class PlantformController : BaseController
 {
     float rotateStep = -5f;
     float posOffset;
     Rigidbody2D rb;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         posOffset = GetComponent<HingeJoint2D>().connectedAnchor.x;
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(keyLeft))
         {
             rb.AddForceAtPosition(new Vector2(0, rotateStep), new Vector2(-1 + posOffset, 0));
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(keyRight))
         {
             rb.AddForceAtPosition(new Vector2(0, rotateStep), new Vector2(1 + posOffset, 0));
         }

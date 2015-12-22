@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EatCubeHeroController : MonoBehaviour
+public class EatCubeHeroController : BaseController
 {
     public float speed;
     Rigidbody2D rb;
     //float scale = 0.25f;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -18,28 +19,28 @@ public class EatCubeHeroController : MonoBehaviour
         //speed = 5 * Time.deltaTime;
         speed = 5;
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(keyUp))
         {
             //if (currentPos.y + speed + scale < gameController.endY)
             //transform.Translate(0, speed, 0);
             rb.AddForce(new Vector2(0, speed));
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(keyLeft))
         {
             //if (currentPos.x - speed - scale > gameController.startX)
             //transform.Translate(-speed, 0, 0);
             rb.AddForce(new Vector2(-speed, 0));
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(keyDown))
         {
             //if (currentPos.y - speed - scale > gameController.startY)
             //transform.Translate(0, -speed, 0);
             rb.AddForce(new Vector2(0, -speed));
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(keyDown))
         {
             //if (currentPos.x + speed + scale < gameController.endX)
             //transform.Translate(speed, 0, 0);

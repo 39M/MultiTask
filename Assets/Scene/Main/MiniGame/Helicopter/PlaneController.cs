@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlaneController : MonoBehaviour
+public class PlaneController : BaseController
 {
     float force = 5f;
     Rigidbody2D rb;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
         // Move plane up
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(keyUp))
         {
             rb.AddForce(new Vector2(0, force));
         }

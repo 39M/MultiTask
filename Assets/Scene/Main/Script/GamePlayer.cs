@@ -48,9 +48,6 @@ public class GamePlayer : MonoBehaviour
     // Initialization
     void Start()
     {
-        //Debug.Log(Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, 10)));
-        //Debug.Log(Camera.main.WorldToViewportPoint(new Vector3(100, 100, 0)));
-
         // Init fade cover
         LeftCover = Instantiate(fadeCover);
         LeftCover.transform.Translate(-10.25f, 0, 0);

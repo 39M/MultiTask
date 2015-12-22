@@ -41,7 +41,10 @@ public abstract class BaseGame : MonoBehaviour
     }
 
     // Update is called once per frame
-    public abstract void Update();
+    public virtual void Update()
+    {
+
+    }
 
     // Check if game over
     public bool isGameOver()
