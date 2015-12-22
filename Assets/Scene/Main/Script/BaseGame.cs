@@ -62,6 +62,14 @@ public abstract class BaseGame : MonoBehaviour
         return t;
     }
 
+    // Create a game object at ratioX of game area
+    public GameObject CreateGameObjectWithRatio(GameObject go, float ratioX)
+    {
+        var t = Instantiate(go);
+        t.transform.Translate(offset * 2 * (isLeft ? (1 - ratioX) : ratioX), 0, 0);
+        return t;
+    }
+
     // Pos: -1=>floor, 1=>ceiling
     public GameObject CreateHorizontalLimit(GameObject limit, int pos)
     {

@@ -11,7 +11,7 @@ public class JumpOverBlock : BaseGame
     {
         base.Start();
 
-        rect = CreateGameObject(rect);
+        rect = CreateGameObjectWithRatio(rect, 1 / 5f);
         rect.GetComponent<RectController>().isLeft = isLeft;
 
         land = CreateGameObject(land);

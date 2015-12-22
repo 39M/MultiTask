@@ -16,7 +16,7 @@ public class Helicopter : BaseGame
         ceilingLimit = CreateHorizontalLimit(ceilingLimit, 1);
         floorLimit = CreateHorizontalLimit(floorLimit, -1);
 
-        plane = CreateGameObject(plane);
+        plane = CreateGameObjectWithRatio(plane, 1 / 5f);
         plane.GetComponent<PlaneController>().isLeft = isLeft;
     }
 
