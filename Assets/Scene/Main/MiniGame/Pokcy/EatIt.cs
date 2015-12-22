@@ -4,7 +4,7 @@ using System.Collections;
 public class EatIt : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public bool EatItdegameover;
+    public bool gameover;
     float time1,time2,time3;
     public bool isVisible;
 
@@ -26,11 +26,11 @@ public class EatIt : MonoBehaviour
         }
         else if(isVisible)
         {
-            EatItdegameover = true;
+            gameover = true;
         }
 
         if (time3 > 0.1f)
-            EatItdegameover = true;    
+            gameover = true;    
     }
     void OnTriggerEnter2D(Collider2D other)
     {

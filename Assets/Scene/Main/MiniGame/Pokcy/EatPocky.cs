@@ -13,14 +13,15 @@ public class EatPocky : BaseGame
         base.Start();
        
 
-        CreateGameObject(pocky);
-        ei = CreateGameObject(mouth).GetComponentInChildren<EatIt>();
+        pocky = CreateGameObject(pocky);
+        mouth = CreateGameObject(mouth);
+        ei = mouth.GetComponentInChildren<EatIt>();
         
     }
 
     public override void Update()
     {
-        if (ei.EatItdegameover)
+        if (ei.gameover)
             gameover = true;
     }
 
