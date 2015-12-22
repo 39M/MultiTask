@@ -15,6 +15,7 @@ public class JumpOverBlock : BaseGame
         rect.GetComponent<RectController>().isLeft = isLeft;
 
         land = CreateGameObject(land);
+        land.transform.localScale = new Vector3((endX - startX) * 100f, 20, 1);
     }
 
     public override void Update()
