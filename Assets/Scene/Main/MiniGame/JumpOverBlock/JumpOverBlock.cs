@@ -11,7 +11,7 @@ public class JumpOverBlock : BaseGame
     {
         base.Start();
 
-        rect = CreateGameObjectWithRatio(rect, 1 / 5f);
+        rect = CreateGameObjectWithRatio(rect, 0.2f);
         rect.GetComponent<RectController>().isLeft = isLeft;
 
         land = CreateGameObject(land);
@@ -24,12 +24,10 @@ public class JumpOverBlock : BaseGame
 
         if (timer > 1.5f)
         {
-            var b = Instantiate(block);
+            var b = CreateGameObjectWithRatio(block, 0.95f);
             // If at right, move block behind the left cover
-            if (isLeft)
-                b.transform.Translate(offset, 0, 0);
-            else
-                b.transform.Translate(offset, 0, 5);
+            if (!isLeft)
+                b.transform.Translate(0, 0, 5);
             b.GetComponent<BlockMove>().gameController = this;
             timer = 0;
         }

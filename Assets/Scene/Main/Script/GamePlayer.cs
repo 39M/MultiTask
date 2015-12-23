@@ -26,7 +26,7 @@ public class GamePlayer : MonoBehaviour
     int LeftGameType, RightGameType;
 
     // Game switch rate
-    float switchTime = 5f;
+    float switchTime = 10f;
 
     // Cover for fade
     public GameObject fadeCover;

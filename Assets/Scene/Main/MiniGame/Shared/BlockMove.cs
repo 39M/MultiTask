@@ -7,7 +7,8 @@ public class BlockMove : MonoBehaviour
     SpriteRenderer render;
     Color blockColor;
     float moveSpeed = 5;
-    float fadeTime = 0.25f;
+    float fadeTime = 0.3f;
+    float deadPos;
     bool fullyShow = false;
 
     void Start()
@@ -16,6 +17,7 @@ public class BlockMove : MonoBehaviour
         blockColor = render.color;
         blockColor.a = 0;
         render.color = blockColor;
+        deadPos = gameController.offset - Mathf.Abs(gameController.offset) * 0.9f;
     }
 
     void Update()
@@ -23,11 +25,11 @@ public class BlockMove : MonoBehaviour
         // Move left
         transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
         // Destroy when game over or at most left
-        if (gameController.gameover || transform.position.x < -4.4f + gameController.offset)
+        if (gameController.gameover || transform.position.x < deadPos)
             Destroy(gameObject);
 
         // Fade out
-        if (transform.position.x < -4.4f + gameController.offset + fadeTime * moveSpeed)
+        if (transform.position.x < deadPos + fadeTime * moveSpeed)
         {
             blockColor.a -= 1.0f / fadeTime * Time.deltaTime;
             render.color = blockColor;

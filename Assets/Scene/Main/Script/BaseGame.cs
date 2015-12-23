@@ -63,10 +63,12 @@ public abstract class BaseGame : MonoBehaviour
     }
 
     // Create a game object at ratioX of game area
-    public GameObject CreateGameObjectWithRatio(GameObject go, float ratioX)
+    public GameObject CreateGameObjectWithRatio(GameObject go, float ratioX = 0.5f, float ratioY = 0.5f)
     {
         var t = Instantiate(go);
         t.transform.Translate(offset * 2 * (isLeft ? (1 - ratioX) : ratioX), 0, 0);
+        //t.transform.position = new Vector3(offset * 2 * (isLeft ? (1 - ratioX) : ratioX),
+            //(endY - startY) * (ratioY - 0.5f), 0);
         return t;
     }
 

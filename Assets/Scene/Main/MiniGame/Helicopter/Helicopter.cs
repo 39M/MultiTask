@@ -27,8 +27,8 @@ public class Helicopter : BaseGame
         // Generate a new block
         if (timer > 1)
         {
-            var b = Instantiate(block);
-            b.transform.Translate(offset, Random.Range(-4f, 4f), 0);
+            var b = CreateGameObjectWithRatio(block, 0.95f);
+            b.transform.Translate(0, Random.Range(startY + 1f, endY - 1f), 0);
             b.GetComponent<BlockMove>().gameController = this;
             timer = 0;
         }
