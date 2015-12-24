@@ -18,6 +18,8 @@ public class KeepItUp : BaseGame
 
         guard = CreateGameObject(guard);
         guard.GetComponent<GuardController>().isLeft = isLeft;
+        guard.transform.localScale = new Vector3((endX - startX) * 20, 25, 1);
+
         ball = CreateGameObject(ball);
         ball.GetComponent<KeepItUpBallMove>().gameController = this;
     }
