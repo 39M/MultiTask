@@ -75,7 +75,7 @@ public class GamePlayer : MonoBehaviour
 
         if (LeftGame.isGameOver() || RightGame.isGameOver())
         {
-            if (gameoverTimer < fadeTime)
+            if (gameoverTimer < fadeTime + 0.1f)
             {
                 // Fade out
                 gameoverTimer += Time.deltaTime;
@@ -98,11 +98,11 @@ public class GamePlayer : MonoBehaviour
         }
 
         // Fade in
-        if (switchTimer < fadeTime)
+        if (switchTimer < fadeTime + 0.1f)
             Fade(-1);
 
         // Fade out
-        if (switchTimer > switchTime - fadeTime)
+        if (switchTimer > switchTime - fadeTime - 0.1f)
             Fade(1);
     }
 
@@ -122,6 +122,26 @@ public class GamePlayer : MonoBehaviour
     {
         LeftCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
         RightCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
+
+        if (direction == 1)
+        {
+            if (LeftCoverColor.a > 1f)
+                LeftCoverColor.a = 1f;
+
+            if (RightCoverColor.a > 1f)
+                RightCoverColor.a = 1f;
+        }
+
+        if (direction == -1)
+        {
+            if (LeftCoverColor.a < 0f)
+                LeftCoverColor.a = 0f;
+
+            if (RightCoverColor.a < 0f)
+                RightCoverColor.a = 0f;
+        }
+
+
         LeftCoverRenderer.color = LeftCoverColor;
         RightCoverRenderer.color = RightCoverColor;
     }
