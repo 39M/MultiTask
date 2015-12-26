@@ -12,6 +12,8 @@ public abstract class BaseGame : MonoBehaviour
     // World edge
     public float startX, endX;
     public float startY, endY;
+    // Key code
+    public KeyCode keyUp, keyDown, keyRight, keyLeft;
 
     // Initialization
     public virtual void Start()
@@ -21,11 +23,19 @@ public abstract class BaseGame : MonoBehaviour
         {
             startVector = new Vector3(0, 0);
             endVector = new Vector3(0.5f, 1);
+            keyUp = KeyCode.W;
+            keyDown = KeyCode.S;
+            keyLeft = KeyCode.A;
+            keyRight = KeyCode.D;
         }
         else
         {
             startVector = new Vector3(0.5f, 0);
             endVector = new Vector3(1, 1);
+            keyUp = KeyCode.UpArrow;
+            keyDown = KeyCode.DownArrow;
+            keyLeft = KeyCode.LeftArrow;
+            keyRight = KeyCode.RightArrow;
         }
         startVector = Camera.main.ViewportToWorldPoint(startVector);
         startX = startVector.x;
@@ -66,7 +76,7 @@ public abstract class BaseGame : MonoBehaviour
     public GameObject CreateGameObjectWithRatio(GameObject go, float ratioX = 0.5f, float ratioY = 0.5f)
     {
         var t = Instantiate(go);
-        t.transform.Translate(offset * 2 * (isLeft ? (1 - ratioX) : ratioX), 0, 0);
+        t.transform.Translate(offset * 2 * (isLeft ? (1 - ratioX) : ratioX), (endY - startY) * (ratioY - 0.5f), 0);
         //t.transform.position = new Vector3(offset * 2 * (isLeft ? (1 - ratioX) : ratioX),
             //(endY - startY) * (ratioY - 0.5f), 0);
         return t;
