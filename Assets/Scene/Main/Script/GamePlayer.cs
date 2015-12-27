@@ -190,6 +190,7 @@ public class GamePlayer : MonoBehaviour
     {
         gameover = true;
         scoreTimer = Time.time;
+        Debug.Log("Survive Time: " + scoreTimer);
         EndGame(true);
         EndGame(false);
     }

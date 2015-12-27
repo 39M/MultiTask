@@ -3,15 +3,14 @@ using System.Collections;
 
 public class EatIt : MonoBehaviour
 {
-    private Rigidbody2D rb;
     public bool gameover;
-    float time1,time2,time3;
+    float time1, time2, time3;
     public bool isVisible;
 
     // Use this for initialization
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        
     }
 
     // Update is called once per frame
@@ -24,14 +23,15 @@ public class EatIt : MonoBehaviour
             time3 = time2 - time1;
             Debug.Log(time3);
         }
-        else if(isVisible)
+        else if (isVisible)
         {
             gameover = true;
         }
 
         if (time3 > 0.1f)
-            gameover = true;    
+            gameover = true;
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("pocky"))
@@ -45,4 +45,4 @@ public class EatIt : MonoBehaviour
         }
     }
 }
-        
+

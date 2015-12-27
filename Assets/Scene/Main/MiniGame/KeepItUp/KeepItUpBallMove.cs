@@ -8,7 +8,8 @@ public class KeepItUpBallMove : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.5f, 0.5f), ForceMode2D.Impulse);
+        Vector2 direction = new Vector2(Random.Range(0.25f, 0.75f), Random.Range(0.3f, 0.7f));
+        gameObject.GetComponent<Rigidbody2D>().AddForce(direction.normalized / 2f, ForceMode2D.Impulse);
     }
 
     // Update is called once per frame

@@ -15,6 +15,7 @@ public class Balance : BaseGame
         plantform.GetComponent<PlantformController>().isLeft = isLeft;
 
         ball = CreateGameObject(ball);
+        ball.transform.Translate(new Vector3(Random.Range(0.1f, 0.5f) * (Random.value > 0.5 ? 1 : -1), 0));
     }
 
     public override void Update()

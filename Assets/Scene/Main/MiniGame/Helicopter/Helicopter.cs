@@ -25,12 +25,12 @@ public class Helicopter : BaseGame
         timer += Time.deltaTime;
 
         // Generate a new block
-        if (timer > 1)
+        if (timer > 2)
         {
             var b = CreateGameObjectWithRatio(block, 0.95f);
             b.transform.Translate(0, Random.Range(startY + 1f, endY - 1f), 0);
             b.GetComponent<BlockMove>().gameController = this;
-            timer = 0;
+            timer = Random.Range(-1f, 1f);
         }
     }
 

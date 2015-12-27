@@ -38,7 +38,7 @@ public class AvoidArrow : BaseGame
         }
         else
         {
-            timer = 0;
+            timer = Random.Range(-1f, 0.5f);
 
             Vector3 arrowPos;
             switch (Random.Range(0, 4))

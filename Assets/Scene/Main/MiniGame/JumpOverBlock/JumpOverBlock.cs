@@ -29,7 +29,7 @@ public class JumpOverBlock : BaseGame
             if (!isLeft)
                 b.transform.Translate(0, 0, 5);
             b.GetComponent<BlockMove>().gameController = this;
-            timer = 0;
+            timer = Random.Range(-1.5f, 0.5f);
         }
     }
 
