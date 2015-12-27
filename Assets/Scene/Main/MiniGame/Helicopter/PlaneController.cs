@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlaneController : BaseController
 {
-    float force = 2.5f;
+    float force = 0.12f;
     Rigidbody2D rb;
 
     public override void Start()
@@ -17,7 +17,7 @@ public class PlaneController : BaseController
         // Move plane up
         if (Input.GetKey(keyUp))
         {
-            rb.AddForce(new Vector2(0, force));
+            rb.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
         }
     }
 }
