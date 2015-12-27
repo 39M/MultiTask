@@ -19,6 +19,9 @@ public class PutBlock : BaseGame
     {
         base.Start();
 
+        // Ensure col_count won't over flow
+        col_count = Mathf.Clamp(col_count, 1, 3);
+
         // Create countdown bar
         countdownBar = CreateGameObjectWithRatio(countdownBar, 0.5f, 0.03f);
         countdownBarRenderer = countdownBar.GetComponent<SpriteRenderer>();
@@ -29,7 +32,7 @@ public class PutBlock : BaseGame
         for (int i = 0; i < col_count; i++)
         {
             all_blocks.Add(new List<GameObject>());
-            int block_num = Random.Range(2, max_block);
+            int block_num = Random.Range(1, max_block);
             for (int j = 0; j < block_num; j++)
             {
                 float percentageX = (i + 1) / (col_count + 1f);
@@ -41,7 +44,7 @@ public class PutBlock : BaseGame
 
     public override void Update()
     {
-        if (Input.GetKeyDown(keyLeft))
+        if (col_count != 1 && Input.GetKeyDown(keyLeft))
         {
             if (all_blocks[0].Count <= blocks_count[0])
             {
@@ -52,15 +55,28 @@ public class PutBlock : BaseGame
             blocks_count[0]++;
         }
 
-        if (Input.GetKeyDown(keyRight))
+        if (col_count != 2 && Input.GetKeyDown(keyUp))
         {
-            if (all_blocks[1].Count <= blocks_count[1])
+            int index_t = col_count == 1 ? 0 : 1;
+            if (all_blocks[index_t].Count <= blocks_count[index_t])
             {
                 gameover = true;
                 return;
             }
-            all_blocks[1][blocks_count[1]].GetComponent<SpriteRenderer>().color = Color.black;
-            blocks_count[1]++;
+            all_blocks[index_t][blocks_count[index_t]].GetComponent<SpriteRenderer>().color = Color.black;
+            blocks_count[index_t]++;
+        }
+
+        if (col_count != 1 && Input.GetKeyDown(keyRight))
+        {
+            int index_t = col_count == 3 ? 2 : 1;
+            if (all_blocks[index_t].Count <= blocks_count[index_t])
+            {
+                gameover = true;
+                return;
+            }
+            all_blocks[index_t][blocks_count[index_t]].GetComponent<SpriteRenderer>().color = Color.black;
+            blocks_count[index_t]++;
         }
 
         // Game over, set success false, make countdown bar red
@@ -105,8 +121,10 @@ public class PutBlock : BaseGame
         }
 
         // Check if success
-        if (all_blocks[0].Count == blocks_count[0] && all_blocks[1].Count == blocks_count[1])
-            success = true;
+        success = true;
+        for (int i = 0; i < col_count; i++)
+            if (all_blocks[i].Count != blocks_count[i])
+                success = false;
     }
 
     public override void End()
