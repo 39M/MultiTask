@@ -45,16 +45,33 @@ public class GamePlayer : MonoBehaviour
     // Score timer
     float scoreTimer = 0;
 
+    // World edge
+    public float startX, endX;
+    public float startY, endY;
+    // 1/4 of screen width
+    public float offset;
+
     // Initialization
     void Start()
     {
+        // Init
+        Vector3 startVector = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
+        startX = startVector.x;
+        startY = startVector.y;
+        Vector3 endVector = Camera.main.ViewportToWorldPoint(new Vector3(1, 1));
+        endX = endVector.x;
+        endY = endVector.y;
+        offset = (endX - startX) / 4.0f;
+
         // Init fade cover
         LeftCover = Instantiate(fadeCover);
-        LeftCover.transform.Translate(-10.25f, 0, 0);
+        LeftCover.transform.Translate(-offset, 0, 0);
+        LeftCover.transform.localScale = new Vector3(50 * (endX - startX), 100 * (endY - startY), 1);
         LeftCoverRenderer = LeftCover.GetComponent<SpriteRenderer>();
         LeftCoverColor = LeftCoverRenderer.color;
         RightCover = Instantiate(fadeCover);
-        RightCover.transform.Translate(10.25f, 0, 0);
+        RightCover.transform.Translate(offset, 0, 0);
+        RightCover.transform.localScale = new Vector3(50 * (endX - startX), 100 * (endY - startY), 1);
         RightCoverRenderer = RightCover.GetComponent<SpriteRenderer>();
         RightCoverColor = RightCoverRenderer.color;
 

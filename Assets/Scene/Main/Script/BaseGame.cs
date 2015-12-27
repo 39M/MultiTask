@@ -18,6 +18,8 @@ public abstract class BaseGame : MonoBehaviour
     // Initialization
     public virtual void Start()
     {
+        gameover = false;
+
         Vector3 startVector, endVector;
         if (isLeft)
         {
