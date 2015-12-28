@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class EatCubeHeroController : BaseController
+public class WASDController : BaseController
 {
     public float speed;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     //float scale = 0.25f;
 
     public override void Start()
@@ -13,7 +12,7 @@ public class EatCubeHeroController : BaseController
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    public virtual void Update()
     {
         //Vector3 currentPos = transform.position;
         //speed = 5 * Time.deltaTime;
@@ -47,13 +46,4 @@ public class EatCubeHeroController : BaseController
             rb.AddForce(new Vector2(speed, 0));
         }
     }
-
-    //void OnCollisionEnter2D(Collision2D other)
-    //{
-    //    // When collide with block, game over
-    //    if (other.gameObject.tag == "Food")
-    //    {
-    //        other.transform.SendMessage("Eaten");
-    //    }
-    //}
 }

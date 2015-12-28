@@ -21,7 +21,7 @@ public class EatCube : BaseGame
         edgeLimit = CreateVertitalLimit(edgeLimit);
 
         hero = CreateGameObject(hero);
-        hero.GetComponent<EatCubeHeroController>().isLeft = isLeft;
+        hero.GetComponent<WASDController>().isLeft = isLeft;
     }
 
     public override void Update()
