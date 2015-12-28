@@ -19,6 +19,7 @@ public class EvadeTrackingMissile : BaseGame
         edgeLimit = CreateVertitalLimit(edgeLimit);
 
         hero = CreateGameObject(hero);
+        hero.GetComponent<WASDController>().isLeft = isLeft;
     }
 
     public override void Update()
