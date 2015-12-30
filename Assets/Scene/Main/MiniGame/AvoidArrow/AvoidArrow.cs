@@ -32,13 +32,13 @@ public class AvoidArrow : BaseGame
         if (gameover)
             return;
 
-        if (timer < 1f)
+        if (timer < 2f)
         {
             timer += Time.deltaTime;
         }
         else
         {
-            timer = Random.Range(-1f, 0.5f);
+            timer = Random.Range(-1f, 1f);
 
             Vector3 arrowPos;
             switch (Random.Range(0, 4))

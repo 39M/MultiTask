@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RectController : BaseController
 {
-    float force = 40f;
+    float force = 30f;
     Rigidbody2D rb;
     public bool onLand = true;
 
@@ -13,7 +13,7 @@ public class RectController : BaseController
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey(keyUp) && onLand)
         {

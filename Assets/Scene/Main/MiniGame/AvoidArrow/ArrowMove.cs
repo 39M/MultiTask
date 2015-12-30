@@ -11,13 +11,13 @@ public class ArrowMove : MonoBehaviour
     void Start()
     {
         direction = hero.transform.position - transform.position;
-        direction.Normalize();
+        direction = direction.normalized * 1.5f;
     }
 
 
     void Update()
     {
-        transform.Translate(2.5f * direction * Time.deltaTime);
+        transform.Translate(direction * Time.deltaTime);
 
         float posX = transform.position.x;
         float posY = transform.position.y;

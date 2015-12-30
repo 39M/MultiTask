@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlantformController : BaseController
 {
-    float rotateStep = -5f;
+    float rotateStep = -10f;
     float posOffset;
     Rigidbody2D rb;
 
@@ -14,7 +14,7 @@ public class PlantformController : BaseController
         posOffset = GetComponent<HingeJoint2D>().connectedAnchor.x;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey(keyLeft))
         {

@@ -6,7 +6,7 @@ public class BlockMove : MonoBehaviour
     public BaseGame gameController;
     SpriteRenderer render;
     Color blockColor;
-    float moveSpeed = 5;
+    float moveSpeed = 3;
     float fadeTime = 0.3f;
     float deadPos;
     bool fullyShow = false;

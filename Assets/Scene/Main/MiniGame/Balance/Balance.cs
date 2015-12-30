@@ -20,7 +20,7 @@ public class Balance : BaseGame
 
     public override void Update()
     {
-        if (ball.transform.position.y < -5)
+        if (ball.transform.position.y < startY)
             gameover = true;
     }
 

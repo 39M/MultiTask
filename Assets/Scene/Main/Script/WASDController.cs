@@ -2,8 +2,8 @@
 
 public class WASDController : BaseController
 {
-    public float speed;
     public Rigidbody2D rb;
+    public float speed;
     //float scale = 0.25f;
 
     public override void Start()
@@ -12,11 +12,11 @@ public class WASDController : BaseController
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public virtual void Update()
+    public virtual void FixedUpdate()
     {
         //Vector3 currentPos = transform.position;
         //speed = 5 * Time.deltaTime;
-        speed = 5;
+        speed = 10f;
 
         if (Input.GetKey(keyUp))
         {

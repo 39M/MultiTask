@@ -34,8 +34,8 @@ public class FoodController : MonoBehaviour
         if (leftTime < 0)
             gameController.gameover = true;
 
-        float deltaScale = Time.deltaTime * (originScale / totalTime);
-        gameObject.transform.localScale -= new Vector3(deltaScale, deltaScale, 0);
+        float nextScale = leftTime / totalTime * originScale;
+        gameObject.transform.localScale = new Vector3(nextScale, nextScale, 0);
 
         // Fade out
         if (eaten)

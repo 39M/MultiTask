@@ -13,6 +13,12 @@ public class MissileMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    void FixedUpdate()
+    {
+        Vector2 direction = heroTransform.position - transform.position;
+        rb.velocity = Vector2.MoveTowards(rb.velocity, direction.normalized * 2f, flexibility * 2f);
+    }
+
     void Update()
     {
         if (gameController.gameover)
@@ -20,9 +26,6 @@ public class MissileMove : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        Vector2 direction = heroTransform.position - transform.position;
-        rb.velocity = Vector2.MoveTowards(rb.velocity, direction.normalized * 3f, flexibility);
     }
 
     void OnTriggerEnter2D(Collider2D other)

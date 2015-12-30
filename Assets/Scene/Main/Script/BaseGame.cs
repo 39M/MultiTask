@@ -52,6 +52,11 @@ public abstract class BaseGame : MonoBehaviour
             offset = -offset;
     }
 
+    public virtual void FixedUpdate()
+    {
+
+    }
+
     // Update is called once per frame
     public virtual void Update()
     {

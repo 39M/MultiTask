@@ -22,14 +22,14 @@ public class JumpOverBlock : BaseGame
     {
         timer += Time.deltaTime;
 
-        if (timer > 1.5f)
+        if (timer > 2f)
         {
             var b = CreateGameObjectWithRatio(block, 0.95f);
             // If at right, move block behind the left cover
             if (!isLeft)
                 b.transform.Translate(0, 0, 5);
             b.GetComponent<BlockMove>().gameController = this;
-            timer = Random.Range(-1.5f, 0.5f);
+            timer = Random.Range(-1f, 0.5f);
         }
     }
 

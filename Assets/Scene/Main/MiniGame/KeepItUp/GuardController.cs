@@ -12,9 +12,9 @@ public class GuardController : BaseController
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        speed = 10;
+        speed = 15;
 
         if (Input.GetKey(keyLeft))
         {
