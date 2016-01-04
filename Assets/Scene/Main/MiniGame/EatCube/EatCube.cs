@@ -36,8 +36,13 @@ public class EatCube : BaseGame
         else
         {
             timer = Random.Range(-2.5f, 1.25f);
-            Vector3 foodPos = new Vector3(Random.Range(startX + foodScalehalf, endX - foodScalehalf),
-                Random.Range(startY + foodScalehalf, endY - foodScalehalf));
+            Vector3 foodPos;
+            do
+            {
+                foodPos = new Vector3(Random.Range(startX + foodScalehalf, endX - foodScalehalf),
+                                Random.Range(startY + foodScalehalf, endY - foodScalehalf));
+            } while ((foodPos - hero.transform.position).magnitude < 1f);
+
             FoodController fc = ((GameObject)Instantiate(food, foodPos, food.transform.rotation)).GetComponent<FoodController>();
             fc.gameController = this;
         }

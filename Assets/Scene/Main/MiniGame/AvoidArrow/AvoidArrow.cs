@@ -41,25 +41,30 @@ public class AvoidArrow : BaseGame
             timer = Random.Range(-1f, 1f);
 
             Vector3 arrowPos;
-            switch (Random.Range(0, 4))
+            do
             {
-                case 0:
-                    arrowPos = new Vector3(Random.Range(startX, endX), startY);
-                    break;
-                case 1:
-                    arrowPos = new Vector3(Random.Range(startX, endX), endY);
-                    break;
-                case 2:
-                    arrowPos = new Vector3(startX, Random.Range(startY, endY));
-                    break;
-                default:
-                    arrowPos = new Vector3(endX, Random.Range(startY, endY));
-                    break;
-            }
+                arrowPos = randEdgePosition();
+            } while ((arrowPos - hero.transform.position).magnitude < 1f);
+
 
             ArrowMove arrowMoveScript = ((GameObject)Instantiate(arrow, arrowPos, arrow.transform.rotation)).GetComponent<ArrowMove>();
             arrowMoveScript.hero = hero;
             arrowMoveScript.gameController = this;
+        }
+    }
+
+    Vector3 randEdgePosition()
+    {
+        switch (Random.Range(0, 4))
+        {
+            case 0:
+                return new Vector3(Random.Range(startX, endX), startY);
+            case 1:
+                return new Vector3(Random.Range(startX, endX), endY);
+            case 2:
+                return new Vector3(startX, Random.Range(startY, endY));
+            default:
+                return new Vector3(endX, Random.Range(startY, endY));
         }
     }
 

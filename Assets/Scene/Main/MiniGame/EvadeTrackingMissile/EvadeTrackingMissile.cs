@@ -43,26 +43,31 @@ public class EvadeTrackingMissile : BaseGame
     public void CreateMissile(float flexibility)
     {
         Vector3 missilePos;
-        switch (Random.Range(0, 4))
+        do
         {
-            case 0:
-                missilePos = new Vector3(Random.Range(startX, endX), startY + 0.15f);
-                break;
-            case 1:
-                missilePos = new Vector3(Random.Range(startX, endX), endY - 0.15f);
-                break;
-            case 2:
-                missilePos = new Vector3(startX + 0.15f, Random.Range(startY, endY));
-                break;
-            default:
-                missilePos = new Vector3(endX - 0.15f, Random.Range(startY, endY));
-                break;
-        }
+            missilePos = randEdgePosition();
+        } while ((missilePos - hero.transform.position).magnitude < 1f);
+        
 
         var missileScript = ((GameObject)Instantiate(missile, missilePos, missile.transform.rotation)).GetComponent<MissileMove>();
         missileScript.gameController = this;
         missileScript.flexibility = flexibility;
         missileScript.heroTransform = hero.transform;
+    }
+
+    Vector3 randEdgePosition()
+    {
+        switch (Random.Range(0, 4))
+        {
+            case 0:
+                return new Vector3(Random.Range(startX, endX), startY + 0.15f);
+            case 1:
+                return new Vector3(Random.Range(startX, endX), endY - 0.15f);
+            case 2:
+                return new Vector3(startX + 0.15f, Random.Range(startY, endY));
+            default:
+                return new Vector3(endX - 0.15f, Random.Range(startY, endY));
+        }
     }
 
     public override void End()
