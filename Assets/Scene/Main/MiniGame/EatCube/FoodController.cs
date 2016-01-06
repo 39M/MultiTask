@@ -7,7 +7,7 @@ public class FoodController : MonoBehaviour
     SpriteRenderer render;
     Color foodColor;
     float fadeTime = 0.25f;
-    const float totalTime = 10f;
+    const float totalTime = 7.5f;
     float originScale;
     float leftTime;
     bool fullyShow = false;

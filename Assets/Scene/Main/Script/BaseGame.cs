@@ -3,6 +3,8 @@ using System.Collections;
 
 public abstract class BaseGame : MonoBehaviour
 {
+    // Game difficulty
+    public float difficulty;
     // Game over flag
     public bool gameover;
     // Display at left?
@@ -18,6 +20,7 @@ public abstract class BaseGame : MonoBehaviour
     // Initialization
     public virtual void Start()
     {
+        difficulty = 1;
         gameover = false;
 
         Vector3 startVector, endVector;
@@ -79,7 +82,7 @@ public abstract class BaseGame : MonoBehaviour
         return t;
     }
 
-    // Create a game object at ratioX of game area
+    // Create a game object at ratioX and ratioY of game area
     public GameObject CreateGameObjectWithRatio(GameObject go, float ratioX = 0.5f, float ratioY = 0.5f)
     {
         var t = Instantiate(go);

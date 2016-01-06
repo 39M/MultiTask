@@ -9,7 +9,7 @@ public class AvoidArrow : BaseGame
     public GameObject floorLimit;
     public GameObject edgeLimit;
 
-    float timer = 0;
+    float timer = 2f;
 
 
     // Use this for initialization
@@ -50,6 +50,7 @@ public class AvoidArrow : BaseGame
             ArrowMove arrowMoveScript = ((GameObject)Instantiate(arrow, arrowPos, arrow.transform.rotation)).GetComponent<ArrowMove>();
             arrowMoveScript.hero = hero;
             arrowMoveScript.gameController = this;
+            arrowMoveScript.speed = difficulty;
         }
     }
 
