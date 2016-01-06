@@ -155,6 +155,7 @@ public class GamePlayer : MonoBehaviour
                     }
                 }
             }
+            return;
         }
 
         // Switch game by switchTime
