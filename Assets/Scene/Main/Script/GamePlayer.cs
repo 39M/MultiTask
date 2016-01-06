@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GamePlayer : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class GamePlayer : MonoBehaviour
 
     // Timer using for switch game
     float switchTimer = 0;
+    // Switch which?
+    bool swithLeft = false;
     // Game over flag
     bool gameover = false;
     // Game over timer
@@ -77,9 +80,9 @@ public class GamePlayer : MonoBehaviour
 
         // Init game
         LeftGameType = Random.Range(0, Games.Length);
-        RightGameType = NextGameType(LeftGameType);
         StartGame(true, LeftGameType);
-        StartGame(false, RightGameType);
+        RightGameType = -1;
+        // RightGame = null;
     }
 
     // Update is called once per frame
@@ -90,7 +93,7 @@ public class GamePlayer : MonoBehaviour
 
         switchTimer += Time.deltaTime;
 
-        if (LeftGame.isGameOver() || RightGame.isGameOver())
+        if ((LeftGame && LeftGame.isGameOver()) || (RightGame && RightGame.isGameOver()))
         {
             if (gameoverTimer < fadeTime + 0.1f)
             {
@@ -107,60 +110,104 @@ public class GamePlayer : MonoBehaviour
         // Switch game by switchTime
         if (switchTimer > switchTime)
         {
-            LeftGameType = NextGameType(LeftGameType);
-            RightGameType = NextGameType(RightGameType, LeftGameType);
-            SwitchGame(true, LeftGameType);
-            SwitchGame(false, RightGameType);
+            if (swithLeft)
+            {
+                LeftGameType = NextGameType(new int[] { LeftGameType, RightGameType });
+                SwitchGame(true, LeftGameType);
+            }
+            else
+            {
+                RightGameType = NextGameType(new int[] { RightGameType, LeftGameType });
+                SwitchGame(false, RightGameType);
+            }
+            swithLeft = !swithLeft;
             switchTimer = 0;
         }
 
         // Fade in
         if (switchTimer < fadeTime + 0.1f)
-            Fade(-1);
+            if (!swithLeft)
+                Fade(-1, -1);
+            else
+                Fade(-1, 1);
+
 
         // Fade out
         if (switchTimer > switchTime - fadeTime - 0.1f)
-            Fade(1);
+            if (swithLeft)
+                Fade(1, -1);
+            else
+                Fade(1, 1);
     }
 
     // Get next game type
-    int NextGameType(int gameTypeNow, int gameTypeAnother = -1)
+    int NextGameType(int[] preGameType = null)
     {
+        if (preGameType == null)
+            return Random.Range(0, Games.Length);
+
         int nextGameType;
+        bool repeat;
         do
         {
+            repeat = false;
             nextGameType = Random.Range(0, Games.Length);
-        } while (nextGameType == gameTypeNow || nextGameType == gameTypeAnother);
+            foreach (var pre in preGameType)
+            {
+                if (pre == nextGameType)
+                    repeat = true;
+            }
+        } while (repeat);
         return nextGameType;
     }
 
     // Fade
-    void Fade(int direction)
+    void Fade(int direction, int which = 0)
     {
-        LeftCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
-        RightCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
+        /* 
+            direction: -1 - fade in, 1 - fade out
+            which: -1 - left only, 1 - right only, other - both
+        */
 
-        if (direction == 1)
+        if (which != 1)
         {
-            if (LeftCoverColor.a > 1f)
-                LeftCoverColor.a = 1f;
+            // Left fade
+            LeftCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
 
-            if (RightCoverColor.a > 1f)
-                RightCoverColor.a = 1f;
+            if (direction == 1)
+            {
+                if (LeftCoverColor.a > 1f)
+                    LeftCoverColor.a = 1f;
+            }
+
+            if (direction == -1)
+            {
+                if (LeftCoverColor.a < 0f)
+                    LeftCoverColor.a = 0f;
+            }
+
+            LeftCoverRenderer.color = LeftCoverColor;
         }
 
-        if (direction == -1)
+        if (which != -1)
         {
-            if (LeftCoverColor.a < 0f)
-                LeftCoverColor.a = 0f;
+            // Right fade
+            RightCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
 
-            if (RightCoverColor.a < 0f)
-                RightCoverColor.a = 0f;
+            if (direction == 1)
+            {
+                if (RightCoverColor.a > 1f)
+                    RightCoverColor.a = 1f;
+            }
+
+            if (direction == -1)
+            {
+                if (RightCoverColor.a < 0f)
+                    RightCoverColor.a = 0f;
+            }
+
+            RightCoverRenderer.color = RightCoverColor;
         }
-
-
-        LeftCoverRenderer.color = LeftCoverColor;
-        RightCoverRenderer.color = RightCoverColor;
     }
 
     // Switch left or right game to a new game by ID
@@ -190,12 +237,12 @@ public class GamePlayer : MonoBehaviour
     // End left or right game
     void EndGame(bool isLeft)
     {
-        if (isLeft)
+        if (isLeft && LeftGame)
         {
             LeftGame.End();
             Destroy(LeftGamePlayer);
         }
-        else
+        else if (!isLeft && RightGame)
         {
             RightGame.End();
             Destroy(RightGamePlayer);
