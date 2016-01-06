@@ -8,9 +8,9 @@ public class PutBlock : BaseGame
     public GameObject countdownBar;
     SpriteRenderer countdownBarRenderer;
     Color countdownBarColor;
-    public int col_count = 2;
+    int col_count = 3;
     public bool success = false;
-    float countDown = 8f;
+    float countDown = 12f;
     int max_block = 9;
     int[] blocks_count;
     List<List<GameObject>> all_blocks = new List<List<GameObject>>();
@@ -24,6 +24,7 @@ public class PutBlock : BaseGame
 
         // Create countdown bar
         countdownBar = CreateGameObjectWithRatio(countdownBar, 0.5f, 0.03f);
+        countdownBar.transform.localScale = new Vector3(countDown / 8 * 500, 10, 1);
         countdownBarRenderer = countdownBar.GetComponent<SpriteRenderer>();
         countdownBarColor = countdownBarRenderer.color;
 
@@ -32,7 +33,7 @@ public class PutBlock : BaseGame
         for (int i = 0; i < col_count; i++)
         {
             all_blocks.Add(new List<GameObject>());
-            int block_num = Random.Range(1, max_block);
+            int block_num = Random.Range(3, max_block);
             for (int j = 0; j < block_num; j++)
             {
                 float percentageX = (i + 1) / (col_count + 1f);
