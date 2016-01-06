@@ -43,7 +43,11 @@ public class GamePlayer : MonoBehaviour
     // Game over flag
     bool gameover = false;
     // Game over timer
-    float gameoverTimer = 0;
+    float gameoverTimer = -1f;
+    // Game over blink direction;
+    bool blinkOut = true;
+    // Blink time
+    int blinkTime = 3;
 
     // Score timer
     float scoreTimer = 0;
@@ -93,17 +97,63 @@ public class GamePlayer : MonoBehaviour
 
         switchTimer += Time.deltaTime;
 
+        // Game over 
         if ((LeftGame && LeftGame.isGameOver()) || (RightGame && RightGame.isGameOver()))
         {
-            if (gameoverTimer < fadeTime + 0.1f)
+            if (blinkTime <= 0)
             {
                 // Fade out
                 gameoverTimer += Time.deltaTime;
-                Fade(1);
+                if (gameoverTimer > 0 && gameoverTimer < fadeTime + 0.1f)
+                {
+                    Fade(1);
+                }
+                else if (gameoverTimer >= fadeTime + 0.1f)
+                {
+                    GameOver();
+                }
             }
             else
             {
-                GameOver();
+                // Blink
+                if (LeftGame.isGameOver())
+                {
+                    // Left
+                    if (blinkOut)
+                    {
+                        Fade(1, -1, 2f);
+                        if (LeftCoverColor.a >= 1f)
+                            blinkOut = !blinkOut;
+                    }
+                    else
+                    {
+                        Fade(-1, -1, 2f);
+                        if (LeftCoverColor.a <= 1e-9)
+                        {
+                            blinkOut = !blinkOut;
+                            blinkTime--;
+                        }
+                    }
+                }
+                else
+                {
+                    // Right
+                    if (blinkOut)
+                    {
+                        Fade(1, 1, 2f);
+                        if (RightCoverColor.a >= 1f)
+                            blinkOut = !blinkOut;
+                    }
+                    else
+                    {
+                        Fade(-1, 1, 2f);
+                        if (RightCoverColor.a <= 1e-9)
+                        {
+                            blinkOut = !blinkOut;
+                            blinkTime--;
+                        }
+                    }
+                }
             }
         }
 
@@ -162,7 +212,7 @@ public class GamePlayer : MonoBehaviour
     }
 
     // Fade
-    void Fade(int direction, int which = 0)
+    void Fade(int direction, int which = 0, float speedUp = 1)
     {
         /* 
             direction: -1 - fade in, 1 - fade out
@@ -172,7 +222,7 @@ public class GamePlayer : MonoBehaviour
         if (which != 1)
         {
             // Left fade
-            LeftCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
+            LeftCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime * speedUp;
 
             if (direction == 1)
             {
@@ -192,7 +242,7 @@ public class GamePlayer : MonoBehaviour
         if (which != -1)
         {
             // Right fade
-            RightCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime;
+            RightCoverColor.a += direction * 1.0f / fadeTime * Time.deltaTime * speedUp;
 
             if (direction == 1)
             {
