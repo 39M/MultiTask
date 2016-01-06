@@ -44,6 +44,8 @@ public class GamePlayer : MonoBehaviour
     bool gameover = false;
     // Game over timer
     float gameoverTimer = -1f;
+    // Which game over first, left or right?
+    int gameoverFirst = 0;
     // Game over blink direction;
     bool blinkOut = true;
     // Blink time
@@ -100,6 +102,14 @@ public class GamePlayer : MonoBehaviour
         // Game over 
         if ((LeftGame && LeftGame.isGameOver()) || (RightGame && RightGame.isGameOver()))
         {
+            if (gameoverFirst == 0)
+            {
+                if (LeftGame.isGameOver())
+                    gameoverFirst = -1;
+                else
+                    gameoverFirst = 1;
+            }
+
             if (blinkTime <= 0)
             {
                 // Fade out
@@ -116,7 +126,7 @@ public class GamePlayer : MonoBehaviour
             else
             {
                 // Blink
-                if (LeftGame.isGameOver())
+                if (gameoverFirst == -1)
                 {
                     // Left
                     if (blinkOut)
@@ -135,7 +145,8 @@ public class GamePlayer : MonoBehaviour
                         }
                     }
                 }
-                else
+
+                if (gameoverFirst == 1)
                 {
                     // Right
                     if (blinkOut)
