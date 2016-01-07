@@ -45,6 +45,12 @@ public class PutBlock : BaseGame
 
     public override void Update()
     {
+        // Game over
+        if (gameover)
+        {
+            return;
+        }
+
         if (col_count != 1 && Input.GetKeyDown(keyLeft))
         {
             if (all_blocks[0].Count <= blocks_count[0])
@@ -78,27 +84,6 @@ public class PutBlock : BaseGame
             }
             all_blocks[index_t][blocks_count[index_t]].GetComponent<SpriteRenderer>().color = Color.black;
             blocks_count[index_t]++;
-        }
-
-        // Game over, set success false, make countdown bar red
-        if (gameover)
-        {
-            success = false;
-
-            if (countdownBarColor.r < 1f)
-                countdownBarColor.r += Time.deltaTime * 5;
-
-            if (countdownBarColor.g > 0f)
-                countdownBarColor.g -= Time.deltaTime * 5;
-
-            if (countdownBarColor.b > 0f)
-                countdownBarColor.b -= Time.deltaTime * 5;
-
-            if (countdownBarColor.a < 1f)
-                countdownBarColor.a += Time.deltaTime * 5;
-
-            countdownBarRenderer.color = countdownBarColor;
-            return;
         }
 
         // Success, fade out countdown bar
