@@ -8,7 +8,7 @@ public class EvadeTrackingMissile : BaseGame
     public GameObject ceilingLimit;
     public GameObject floorLimit;
     public GameObject edgeLimit;
-    float timer = 7.5f;
+    float timer = float.MaxValue;
 
     public override void Start()
     {
@@ -30,10 +30,10 @@ public class EvadeTrackingMissile : BaseGame
 
         base.Update();
 
-        if (timer >= 7.5f)
+        if (timer >= 6f * Mathf.Pow(0.9f, difficulty))
         {
-            timer = Random.Range(-2.5f, 2.5f);
-            CreateMissile(Random.Range(0.01f, 0.04f));
+            timer = Random.Range(-0.1f - 4f * Mathf.Pow(0.9f, difficulty), -0.1f);
+            CreateMissile(Mathf.Clamp(Mathf.Pow(1.05f, difficulty), 1f, 10f), Random.Range(0.01f, 0.05f));
         }
         else
         {
@@ -41,7 +41,7 @@ public class EvadeTrackingMissile : BaseGame
         }
     }
 
-    public void CreateMissile(float flexibility)
+    public void CreateMissile(float speed, float flexibility)
     {
         Vector3 missilePos;
         do
@@ -51,6 +51,7 @@ public class EvadeTrackingMissile : BaseGame
 
         var missileScript = ((GameObject)Instantiate(missile, missilePos, missile.transform.rotation)).GetComponent<MissileMove>();
         missileScript.gameController = this;
+        missileScript.speed = speed;
         missileScript.flexibility = flexibility;
         missileScript.heroTransform = hero.transform;
     }

@@ -6,6 +6,7 @@ public class MissileMove : MonoBehaviour
     public BaseGame gameController;
     public Transform heroTransform;
     public float flexibility;
+    public float speed;
     Rigidbody2D rb;
 
     void Start()
@@ -22,7 +23,7 @@ public class MissileMove : MonoBehaviour
         }
 
         Vector2 direction = heroTransform.position - transform.position;
-        rb.velocity = Vector2.MoveTowards(rb.velocity, direction.normalized * 2f, flexibility * 2f);
+        rb.velocity = Vector2.MoveTowards(rb.velocity, direction.normalized * speed, flexibility * 2f);
     }
 
     void Update()
