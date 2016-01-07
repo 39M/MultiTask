@@ -106,6 +106,7 @@ public class GamePlayer : MonoBehaviour
         {
             if (gameoverFirst == 0)
             {
+                scoreTimer = Time.time;
                 if (LeftGame.isGameOver())
                 {
                     gameoverFirst = -1;
@@ -327,8 +328,7 @@ public class GamePlayer : MonoBehaviour
     // End all games
     void GameOver()
     {
-        gameover = true;
-        scoreTimer = Time.time;
+        gameover = true;        
         Debug.Log("Survive Time: " + scoreTimer);
         EndGame(true);
         EndGame(false);
