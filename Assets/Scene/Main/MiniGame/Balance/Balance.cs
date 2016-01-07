@@ -25,7 +25,15 @@ public class Balance : BaseGame
     public override void Update()
     {
         if (gameover)
+        {
+            var rb = ball.GetComponent<Rigidbody2D>();
+            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
+
+            rb = plantform.GetComponent<Rigidbody2D>();
+            rb.angularVelocity = 0;
             return;
+        }
 
         // Difficulty setting for debug
         //plantform.transform.localScale = new Vector3(Mathf.Clamp(600 * Mathf.Pow(0.965f, difficulty), 200f, 600f), 40f, 1f);
@@ -34,12 +42,6 @@ public class Balance : BaseGame
         if ((ball.transform.position - plantform.transform.position).magnitude > plantform.transform.localScale.x / 200f + 0.3f)
         {
             gameover = true;
-            var rb = ball.GetComponent<Rigidbody2D>();
-            rb.isKinematic = true;
-            rb.velocity = Vector3.zero;
-
-            rb = plantform.GetComponent<Rigidbody2D>();
-            rb.angularVelocity = 0;
         }
     }
 
