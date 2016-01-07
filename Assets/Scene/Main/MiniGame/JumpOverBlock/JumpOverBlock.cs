@@ -5,7 +5,7 @@ public class JumpOverBlock : BaseGame
     public GameObject rect;
     public GameObject land;
     public GameObject block;
-    float timer = 0;
+    float timer = float.MaxValue;
 
     public override void Start()
     {
@@ -26,14 +26,16 @@ public class JumpOverBlock : BaseGame
 
         timer += Time.deltaTime;
 
-        if (timer > 2f)
+        if (timer > 3f * Mathf.Pow(0.9f, difficulty))
         {
             var b = CreateGameObjectWithRatio(block, 0.95f);
             // If at right, move block behind the left cover
             if (!isLeft)
                 b.transform.Translate(0, 0, 5);
+            b.transform.localScale = new Vector3(Mathf.Clamp(Random.Range(50, 100) * Mathf.Pow(1.025f, difficulty), 0, 200), 50, 50);
             b.GetComponent<BlockMove>().gameController = this;
-            timer = Random.Range(-1f, 0.5f);
+            b.GetComponent<BlockMove>().moveSpeed = Mathf.Clamp(2.5f * Mathf.Pow(1.04f, difficulty), 0, 7.5f);
+            timer = Random.Range(-0.75f - 2 * Mathf.Pow(0.95f, difficulty), -0.75f);
         }
     }
 
