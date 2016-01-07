@@ -18,10 +18,14 @@ public class Helicopter : BaseGame
 
         plane = CreateGameObjectWithRatio(plane, 1 / 5f);
         plane.GetComponent<PlaneController>().isLeft = isLeft;
+        plane.GetComponent<PlaneController>().gameController = this;
     }
 
     public override void Update()
     {
+        if (destroy || gameover)
+            return;
+
         timer += Time.deltaTime;
 
         // Generate a new block
@@ -36,7 +40,7 @@ public class Helicopter : BaseGame
 
     public override void End()
     {
-        gameover = true;
+        destroy = true;
         Destroy(floorLimit);
         Destroy(ceilingLimit);
         Destroy(plane);

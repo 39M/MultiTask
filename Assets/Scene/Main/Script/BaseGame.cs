@@ -74,7 +74,7 @@ public abstract class BaseGame : MonoBehaviour
         return gameover;
     }
 
-    // Remove
+    // Remove all GameObject, remember to set destroy as true
     public abstract void End();
 
     public GameObject CreateGameObject(GameObject go)

@@ -22,11 +22,15 @@ public class BlockMove : MonoBehaviour
 
     void Update()
     {
+        // Destroy when game over or at most left
+        if (gameController.destroy || transform.position.x < deadPos)
+            Destroy(gameObject);
+
+        if (gameController.gameover)
+            return;
+
         // Move left
         transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
-        // Destroy when game over or at most left
-        if (gameController.gameover || transform.position.x < deadPos)
-            Destroy(gameObject);
 
         // Fade out
         if (transform.position.x < deadPos + fadeTime * moveSpeed)

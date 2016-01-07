@@ -2,7 +2,6 @@
 
 public class WASDController : BaseController
 {
-    public BaseGame gameController = null;
     public Rigidbody2D rb;
     public float speed;
     //float scale = 0.25f;

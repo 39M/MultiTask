@@ -73,7 +73,7 @@ public class EvadeTrackingMissile : BaseGame
 
     public override void End()
     {
-        gameover = true;
+        destroy = true;
         Destroy(floorLimit);
         Destroy(ceilingLimit);
         Destroy(edgeLimit);

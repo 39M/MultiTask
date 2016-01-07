@@ -14,6 +14,13 @@ public class PlaneController : BaseController
 
     void FixedUpdate()
     {
+        if (gameController.gameover)
+        {
+            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         // Move plane up
         if (Input.GetKey(keyUp))
         {

@@ -5,6 +5,7 @@ public abstract class BaseController : MonoBehaviour
 {
     public bool isLeft;
     public KeyCode keyUp, keyDown, keyRight, keyLeft;
+    public BaseGame gameController = null;
 
     public virtual void Start()
     {

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class PlantformController : BaseController
 {
-    public BaseGame gameController;
     float rotateStep = -10f;
     float posOffset;
     Rigidbody2D rb;
