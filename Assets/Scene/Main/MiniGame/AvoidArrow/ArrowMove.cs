@@ -25,11 +25,11 @@ public class ArrowMove : MonoBehaviour
 
         if (gameController.gameover)
             return;
-        
+
         transform.Translate(speed * direction * Time.deltaTime);
 
         float posX = transform.position.x;
-        float posY = transform.position.y;        
+        float posY = transform.position.y;
         if (posX < gameController.startX || posX > gameController.endX)
             Destroy(gameObject);
         if (posY < gameController.startY || posY > gameController.endY)

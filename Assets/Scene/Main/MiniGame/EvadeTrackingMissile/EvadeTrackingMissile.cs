@@ -48,7 +48,6 @@ public class EvadeTrackingMissile : BaseGame
         {
             missilePos = randEdgePosition();
         } while ((missilePos - hero.transform.position).magnitude < 1f);
-        
 
         var missileScript = ((GameObject)Instantiate(missile, missilePos, missile.transform.rotation)).GetComponent<MissileMove>();
         missileScript.gameController = this;

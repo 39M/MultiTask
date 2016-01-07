@@ -11,12 +11,11 @@ public class EatPocky : BaseGame
     public override void Start()
     {
         base.Start();
-       
 
         pocky = CreateGameObject(pocky);
         mouth = CreateGameObject(mouth);
         ei = mouth.GetComponentInChildren<EatIt>();
-        
+
     }
 
     public override void Update()

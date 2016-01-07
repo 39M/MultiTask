@@ -90,7 +90,7 @@ public abstract class BaseGame : MonoBehaviour
         var t = Instantiate(go);
         t.transform.Translate(offset * 2 * (isLeft ? (1 - ratioX) : ratioX), (endY - startY) * (ratioY - 0.5f), 0);
         //t.transform.position = new Vector3(offset * 2 * (isLeft ? (1 - ratioX) : ratioX),
-            //(endY - startY) * (ratioY - 0.5f), 0);
+        //(endY - startY) * (ratioY - 0.5f), 0);
         return t;
     }
 
