@@ -2,6 +2,7 @@
 
 public class WASDController : BaseController
 {
+    public BaseGame gameController = null;
     public Rigidbody2D rb;
     public float speed;
     //float scale = 0.25f;
@@ -14,6 +15,12 @@ public class WASDController : BaseController
 
     public virtual void FixedUpdate()
     {
+        if (gameController && gameController.gameover)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         //Vector3 currentPos = transform.position;
         //speed = 5 * Time.deltaTime;
         speed = 10f;
