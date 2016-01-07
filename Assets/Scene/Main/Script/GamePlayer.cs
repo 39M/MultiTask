@@ -25,6 +25,8 @@ public class GamePlayer : MonoBehaviour
     BaseGame LeftGame, RightGame;
     // Left and right game type index
     int LeftGameType, RightGameType;
+    // Difficulty
+    float difficulty = 5f;
 
     // Game switch rate
     float switchTime = 10f;
@@ -180,6 +182,7 @@ public class GamePlayer : MonoBehaviour
         // Switch game by switchTime
         if (switchTimer > switchTime)
         {
+            difficulty += 1f;
             if (swithLeft)
             {
                 LeftGameType = NextGameType(new int[] { LeftGameType, RightGameType });
@@ -295,12 +298,14 @@ public class GamePlayer : MonoBehaviour
             LeftGamePlayer = Instantiate(Games[ID]);
             LeftGame = LeftGamePlayer.GetComponent(GameType[ID]) as BaseGame;
             LeftGame.isLeft = true;
+            LeftGame.difficulty = difficulty;
         }
         else
         {
             RightGamePlayer = Instantiate(Games[ID]);
             RightGame = RightGamePlayer.GetComponent(GameType[ID]) as BaseGame;
             RightGame.isLeft = false;
+            RightGame.difficulty = difficulty;
         }
     }
 
