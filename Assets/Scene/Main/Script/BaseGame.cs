@@ -22,7 +22,6 @@ public abstract class BaseGame : MonoBehaviour
     // Initialization
     public virtual void Start()
     {
-        difficulty = 0;
         gameover = false;
 
         Vector3 startVector, endVector;

@@ -4,10 +4,10 @@ using System.Collections;
 public class FoodController : MonoBehaviour
 {
     public BaseGame gameController;
+    public float totalTime = 15f;
     SpriteRenderer render;
     Color foodColor;
     float fadeTime = 0.25f;
-    const float totalTime = 7.5f;
     float originScale;
     float leftTime;
     bool fullyShow = false;
