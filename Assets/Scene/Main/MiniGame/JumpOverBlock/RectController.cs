@@ -15,6 +15,13 @@ public class RectController : BaseController
 
     void FixedUpdate()
     {
+        if (gameController.gameover)
+        {
+            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         if (Input.GetKey(keyUp) && onLand)
         {
             rb.AddForce(new Vector2(0, force));

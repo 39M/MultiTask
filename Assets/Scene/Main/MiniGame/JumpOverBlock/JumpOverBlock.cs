@@ -13,6 +13,7 @@ public class JumpOverBlock : BaseGame
 
         rect = CreateGameObjectWithRatio(rect, 0.2f);
         rect.GetComponent<RectController>().isLeft = isLeft;
+        rect.GetComponent<RectController>().gameController = this;
 
         land = CreateGameObject(land);
         land.transform.localScale = new Vector3((endX - startX) * 100f, 20, 1);
@@ -20,6 +21,9 @@ public class JumpOverBlock : BaseGame
 
     public override void Update()
     {
+        if (destroy || gameover)
+            return;
+
         timer += Time.deltaTime;
 
         if (timer > 2f)
@@ -35,7 +39,7 @@ public class JumpOverBlock : BaseGame
 
     public override void End()
     {
-        gameover = true;
+        destroy = true;
         Destroy(rect);
         Destroy(land);
         Destroy(gameObject);
