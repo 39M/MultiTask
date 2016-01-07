@@ -19,10 +19,15 @@ public class KeepItUp : BaseGame
         guard = CreateGameObject(guard);
         guard.GetComponent<GuardController>().isLeft = isLeft;
         guard.GetComponent<GuardController>().gameController = this;
-        guard.transform.localScale = new Vector3((endX - startX) * 20, 25, 1);
+        //guard.transform.localScale = new Vector3((endX - startX) * 20, 25, 1);
 
         ball = CreateGameObject(ball);
         ball.GetComponent<KeepItUpBallMove>().gameController = this;
+    }
+
+    public override void Update()
+    {
+        guard.transform.localScale = new Vector3(Mathf.Clamp(400 * Mathf.Pow(0.955f, difficulty), 100, 400), 25, 1);
     }
 
     public override void End()

@@ -11,7 +11,7 @@ public class KeepItUpBallMove : MonoBehaviour
     {
         Vector2 direction = new Vector2(Random.Range(0.25f, 0.75f), Random.Range(0.3f, 0.7f));
         rb = gameObject.GetComponent<Rigidbody2D>();
-        rb.AddForce(direction.normalized / 3f, ForceMode2D.Impulse);
+        rb.AddForce(direction.normalized / 3f * Mathf.Pow(1.045f, gameController.difficulty), ForceMode2D.Impulse);
     }
 
     // Update is called once per frame

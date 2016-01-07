@@ -21,7 +21,7 @@ public class GuardController : BaseController
             return;
         }
 
-        speed = 15;
+        speed = 20;
 
         if (Input.GetKey(keyLeft))
         {
