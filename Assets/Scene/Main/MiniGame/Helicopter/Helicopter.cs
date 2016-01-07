@@ -7,7 +7,7 @@ public class Helicopter : BaseGame
     public GameObject floorLimit;
     public GameObject plane;
     public GameObject block;
-    float timer = 0;
+    float timer = float.MaxValue;
 
     public override void Start()
     {
@@ -29,12 +29,15 @@ public class Helicopter : BaseGame
         timer += Time.deltaTime;
 
         // Generate a new block
-        if (timer > 2)
+        if (timer > 3f * Mathf.Pow(0.92f, difficulty))
         {
             var b = CreateGameObjectWithRatio(block, 0.95f);
-            b.transform.Translate(0, Random.Range(startY + 1f, endY - 1f), 0);
+            float scaleY = Mathf.Clamp(Random.Range(150, 200) * Mathf.Pow(1.02f, difficulty), 100, 300);
+            b.transform.localScale = new Vector3(25, scaleY, 1);
+            b.transform.Translate(0, Random.Range(startY + scaleY / 200f, endY - scaleY / 200f), 0);
             b.GetComponent<BlockMove>().gameController = this;
-            timer = Random.Range(-1f, 1f);
+            b.GetComponent<BlockMove>().moveSpeed = Mathf.Clamp(2 * Mathf.Pow(1.04f, difficulty), 0, 5f);
+            timer = Random.Range(0 - 2f * Mathf.Pow(0.92f, difficulty), 0);
         }
     }
 

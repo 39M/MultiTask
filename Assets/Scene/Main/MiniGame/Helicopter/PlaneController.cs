@@ -26,5 +26,11 @@ public class PlaneController : BaseController
         {
             rb.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
         }
+
+        // Move plane down
+        if (Input.GetKey(keyDown))
+        {
+            rb.AddForce(new Vector2(0, -force / 2f), ForceMode2D.Impulse);
+        }
     }
 }

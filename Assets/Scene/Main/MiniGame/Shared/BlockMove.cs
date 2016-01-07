@@ -4,9 +4,9 @@ using System.Collections;
 public class BlockMove : MonoBehaviour
 {
     public BaseGame gameController;
+    public float moveSpeed = 3;
     SpriteRenderer render;
     Color blockColor;
-    float moveSpeed = 3;
     float fadeTime = 0.3f;
     float deadPos;
     bool fullyShow = false;
