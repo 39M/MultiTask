@@ -18,6 +18,7 @@ public class KeepItUp : BaseGame
 
         guard = CreateGameObject(guard);
         guard.GetComponent<GuardController>().isLeft = isLeft;
+        guard.GetComponent<GuardController>().gameController = this;
         guard.transform.localScale = new Vector3((endX - startX) * 20, 25, 1);
 
         ball = CreateGameObject(ball);
@@ -26,7 +27,7 @@ public class KeepItUp : BaseGame
 
     public override void End()
     {
-        gameover = true;
+        destroy = true;
         Destroy(ceilingLimit);
         Destroy(edgeLimit);
         Destroy(ball);

@@ -14,6 +14,13 @@ public class GuardController : BaseController
 
     void FixedUpdate()
     {
+        if (gameController.gameover)
+        {
+            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         speed = 15;
 
         if (Input.GetKey(keyLeft))
