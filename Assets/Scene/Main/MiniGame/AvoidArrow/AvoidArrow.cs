@@ -8,8 +8,9 @@ public class AvoidArrow : BaseGame
     public GameObject ceilingLimit;
     public GameObject floorLimit;
     public GameObject edgeLimit;
+    float blockGenRate;
 
-    float timer = 2f;
+    float timer = float.MaxValue;
 
 
     // Use this for initialization
@@ -32,13 +33,14 @@ public class AvoidArrow : BaseGame
         if (gameover)
             return;
 
-        if (timer < 2f)
+        blockGenRate = 4f * Mathf.Pow(0.85f, difficulty);
+        if (timer < blockGenRate)
         {
             timer += Time.deltaTime;
         }
         else
         {
-            timer = Random.Range(-1f, 1f);
+            timer = Random.Range(-0.1f - Mathf.Pow(0.85f, difficulty), -0.1f);
 
             Vector3 arrowPos;
             do
@@ -50,7 +52,7 @@ public class AvoidArrow : BaseGame
             ArrowMove arrowMoveScript = ((GameObject)Instantiate(arrow, arrowPos, arrow.transform.rotation)).GetComponent<ArrowMove>();
             arrowMoveScript.hero = hero;
             arrowMoveScript.gameController = this;
-            arrowMoveScript.speed = difficulty;
+            arrowMoveScript.speed = Mathf.Clamp(Mathf.Pow(1.05f, difficulty), 1f, 10f);
         }
     }
 

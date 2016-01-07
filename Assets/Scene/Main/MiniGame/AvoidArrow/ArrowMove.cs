@@ -11,8 +11,10 @@ public class ArrowMove : MonoBehaviour
 
     void Start()
     {
+        // Move towards hero
         direction = hero.transform.position - transform.position;
-        direction = direction.normalized;
+        // Random rotate between (-15, 15)
+        direction = (Quaternion.Euler(0, 0, Random.Range(-15f, 15f)) * direction).normalized;
     }
 
 
