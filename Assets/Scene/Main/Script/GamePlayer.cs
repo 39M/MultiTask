@@ -105,9 +105,17 @@ public class GamePlayer : MonoBehaviour
             if (gameoverFirst == 0)
             {
                 if (LeftGame.isGameOver())
+                {
                     gameoverFirst = -1;
+                    if (RightGame)
+                        RightGame.gameover = true;
+                }
                 else
+                {
                     gameoverFirst = 1;
+                    if (LeftGame)
+                        LeftGame.gameover = true;
+                }
             }
 
             if (blinkTime <= 0)

@@ -130,6 +130,7 @@ public class PutBlock : BaseGame
 
     public override void End()
     {
+        destroy = true;
         foreach (var l in all_blocks)
             foreach (var g in l)
                 Destroy(g);
