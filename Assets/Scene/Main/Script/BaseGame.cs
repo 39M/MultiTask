@@ -5,6 +5,8 @@ public abstract class BaseGame : MonoBehaviour
 {
     // Game difficulty
     public float difficulty;
+    // Game destroy flag
+    public bool destroy;
     // Game over flag
     public bool gameover;
     // Display at left?
