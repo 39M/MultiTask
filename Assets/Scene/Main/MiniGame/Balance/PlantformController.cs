@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlantformController : BaseController
 {
+    public BaseGame gameController;
     float rotateStep = -10f;
     float posOffset;
     Rigidbody2D rb;
@@ -16,6 +17,9 @@ public class PlantformController : BaseController
 
     void FixedUpdate()
     {
+        if (gameController.gameover)
+            return;
+
         if (Input.GetKey(keyLeft))
         {
             rb.AddForceAtPosition(new Vector2(0, rotateStep), new Vector2(-1 + posOffset, 0));
