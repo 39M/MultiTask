@@ -35,5 +35,7 @@ public class MissileMove : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Hero"))
             gameController.gameover = true;
+        if (other.gameObject.CompareTag("Limit"))
+            Destroy(gameObject);
     }
 }
