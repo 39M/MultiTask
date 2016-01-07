@@ -26,6 +26,8 @@ public class AvoidArrow : BaseGame
         var heroController = hero.GetComponent<AvoidArrowHeroController>();
         heroController.gameController = this;
         heroController.isLeft = isLeft;
+
+        blockGenRate = 4f * Mathf.Pow(0.85f, difficulty);
     }
 
     public override void Update()
@@ -33,7 +35,8 @@ public class AvoidArrow : BaseGame
         if (destroy || gameover)
             return;
 
-        blockGenRate = 4f * Mathf.Pow(0.85f, difficulty);
+        // Difficulty setting for debug
+        //blockGenRate = 4f * Mathf.Pow(0.85f, difficulty);
         if (timer < blockGenRate)
         {
             timer += Time.deltaTime;
