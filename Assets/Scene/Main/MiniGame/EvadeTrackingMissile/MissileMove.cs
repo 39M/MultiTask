@@ -15,23 +15,25 @@ public class MissileMove : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (gameController.gameover)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         Vector2 direction = heroTransform.position - transform.position;
         rb.velocity = Vector2.MoveTowards(rb.velocity, direction.normalized * 2f, flexibility * 2f);
     }
 
     void Update()
     {
-        if (gameController.gameover)
-        {
+        if (gameController.destroy)
             Destroy(gameObject);
-            return;
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Hero"))
             gameController.gameover = true;
-        Destroy(gameObject);
     }
 }
