@@ -20,17 +20,18 @@ public class ArrowMove : MonoBehaviour
 
     void Update()
     {
+        if (gameController.destroy)
+            Destroy(gameObject);
+
+        if (gameController.gameover)
+            return;
+        
         transform.Translate(speed * direction * Time.deltaTime);
 
         float posX = transform.position.x;
-        float posY = transform.position.y;
-
-        if (gameController.gameover)
-            Destroy(gameObject);
-
+        float posY = transform.position.y;        
         if (posX < gameController.startX || posX > gameController.endX)
             Destroy(gameObject);
-
         if (posY < gameController.startY || posY > gameController.endY)
             Destroy(gameObject);
     }

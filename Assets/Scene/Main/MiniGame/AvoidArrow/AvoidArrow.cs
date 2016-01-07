@@ -30,7 +30,7 @@ public class AvoidArrow : BaseGame
 
     public override void Update()
     {
-        if (gameover)
+        if (destroy || gameover)
             return;
 
         blockGenRate = 4f * Mathf.Pow(0.85f, difficulty);
@@ -73,7 +73,7 @@ public class AvoidArrow : BaseGame
 
     public override void End()
     {
-        gameover = true;
+        destroy = true;
         Destroy(floorLimit);
         Destroy(ceilingLimit);
         Destroy(edgeLimit);
