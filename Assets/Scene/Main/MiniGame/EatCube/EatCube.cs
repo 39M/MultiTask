@@ -22,11 +22,12 @@ public class EatCube : BaseGame
 
         hero = CreateGameObject(hero);
         hero.GetComponent<WASDController>().isLeft = isLeft;
+        hero.GetComponent<WASDController>().gameController = this;
     }
 
     public override void Update()
     {
-        if (gameover)
+        if (destroy || gameover)
             return;
 
         if (timer < 2.5f)
@@ -50,7 +51,7 @@ public class EatCube : BaseGame
 
     public override void End()
     {
-        gameover = true;
+        destroy = true;
         Destroy(floorLimit);
         Destroy(ceilingLimit);
         Destroy(edgeLimit);

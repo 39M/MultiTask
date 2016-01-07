@@ -27,8 +27,11 @@ public class FoodController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameController.gameover)
+        if (gameController.destroy)
             Destroy(gameObject);
+
+        if (gameController.gameover)
+            return;
 
         leftTime -= Time.deltaTime;
         if (leftTime < 0)
