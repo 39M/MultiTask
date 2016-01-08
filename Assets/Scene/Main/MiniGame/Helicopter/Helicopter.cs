@@ -7,6 +7,7 @@ public class Helicopter : BaseGame
     public GameObject floorLimit;
     public GameObject plane;
     public GameObject block;
+    public int controlMethod;
     float timer = float.MaxValue;
 
     public override void Start()
@@ -19,6 +20,7 @@ public class Helicopter : BaseGame
         plane = CreateGameObjectWithRatio(plane, 1 / 5f);
         plane.GetComponent<PlaneController>().isLeft = isLeft;
         plane.GetComponent<PlaneController>().gameController = this;
+        controlMethod = Random.Range(0, 3);
     }
 
     public override void Update()
@@ -27,6 +29,7 @@ public class Helicopter : BaseGame
             return;
 
         timer += Time.deltaTime;
+        plane.GetComponent<PlaneController>().controlMethod = controlMethod;
 
         // Generate a new block
         if (timer > 3f * Mathf.Pow(0.92f, difficulty))
