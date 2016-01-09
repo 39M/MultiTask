@@ -34,7 +34,7 @@ public class Helicopter : BaseGame
         // Generate a new block
         if (timer > 3f * Mathf.Pow(0.92f, difficulty))
         {
-            if (Random.value < Mathf.Pow(0.95f, difficulty))
+            if (Random.value > Mathf.Pow(0.95f, difficulty))
             {
                 GenerateBlock(1);
                 GenerateBlock(2);
