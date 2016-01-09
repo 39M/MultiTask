@@ -35,12 +35,18 @@ public class Helicopter : BaseGame
         if (timer > 3f * Mathf.Pow(0.92f, difficulty))
         {
             var b = CreateGameObjectWithRatio(block, 0.95f);
-            float scaleY = Mathf.Clamp(Random.Range(150, 200) * Mathf.Pow(1.02f, difficulty), 100, 300);
+            float scaleY = Mathf.Clamp(Random.Range(150, 200) * Mathf.Pow(1.02f, difficulty), 100, 400);
             b.transform.localScale = new Vector3(25, scaleY, 1);
-            b.transform.Translate(0, Random.Range(startY + scaleY / 200f, endY - scaleY / 200f), 0);
+
+            int blockPos = Random.Range(0, 3);
+            if (blockPos == 1)
+                b.transform.Translate(0, startY + scaleY / 200f, 0);
+            if (blockPos == 2)
+                b.transform.Translate(0, endY - scaleY / 200f, 0);
+
             b.GetComponent<BlockMove>().gameController = this;
             b.GetComponent<BlockMove>().moveSpeed = Mathf.Clamp(2 * Mathf.Pow(1.04f, difficulty), 0, 5f);
-            timer = Random.Range(0 - 2f * Mathf.Pow(0.92f, difficulty), 0);
+            timer = Random.Range(-0.4f - 2f * Mathf.Pow(0.92f, difficulty), -0.4f);
         }
     }
 
