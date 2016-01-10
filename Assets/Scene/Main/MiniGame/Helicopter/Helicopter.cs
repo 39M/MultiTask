@@ -49,7 +49,7 @@ public class Helicopter : BaseGame
     public void GenerateBlock(int blockPos)
     {
         var b = CreateGameObjectWithRatio(block, 0.95f);
-        float scaleY = Mathf.Clamp(Random.Range(150, 200) * Mathf.Pow(1.02f, difficulty), 100, 330);
+        float scaleY = Mathf.Clamp(Random.Range(150, 200) * Mathf.Pow(1.02f, difficulty), 100, 350);
         b.transform.localScale = new Vector3(25, scaleY, 1);
 
         if (blockPos == 1)
@@ -59,7 +59,7 @@ public class Helicopter : BaseGame
 
         b.GetComponent<BlockMove>().gameController = this;
         b.GetComponent<BlockMove>().moveSpeed = Mathf.Clamp(2 * Mathf.Pow(1.04f, difficulty), 0, 5f);
-        timer = Random.Range(-0.4f - 2f * Mathf.Pow(0.92f, difficulty), -0.4f);
+        timer = Random.Range(-0.75f - 2f * Mathf.Pow(0.92f, difficulty), -0.75f);
     }
 
     public override void End()
