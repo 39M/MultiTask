@@ -8,7 +8,10 @@ public class AvoidArrow : BaseGame
     public GameObject ceilingLimit;
     public GameObject floorLimit;
     public GameObject edgeLimit;
-    float blockGenRate;
+    float blockGenTime;
+    float minGenTime;
+    float genTimeRandomRange;
+    float arrowSpeed;
 
     float timer = float.MaxValue;
 
@@ -26,8 +29,18 @@ public class AvoidArrow : BaseGame
         var heroController = hero.GetComponent<AvoidArrowHeroController>();
         heroController.gameController = this;
         heroController.isLeft = isLeft;
+    }
 
-        blockGenRate = 4f * Mathf.Pow(0.85f, difficulty);
+    public void SetDifficulty()
+    {
+        // Generate time between two block
+        blockGenTime = 4f * Mathf.Pow(0.9f, difficulty);
+        // Min generate time
+        minGenTime = -0.15f;
+        // Random range
+        genTimeRandomRange = Mathf.Pow(0.9f, difficulty);
+        // Arrow move speed
+        arrowSpeed = Mathf.Clamp(Mathf.Pow(1.05f, difficulty), 1f, 7.5f);
     }
 
     public override void Update()
@@ -35,27 +48,26 @@ public class AvoidArrow : BaseGame
         if (destroy || gameover)
             return;
 
-        // Difficulty setting for debug
-        //blockGenRate = 4f * Mathf.Pow(0.85f, difficulty);
-        if (timer < blockGenRate)
+        SetDifficulty();
+
+        if (timer < blockGenTime)
         {
             timer += Time.deltaTime;
         }
         else
         {
-            timer = Random.Range(-0.1f - Mathf.Pow(0.85f, difficulty), -0.1f);
+            timer = Random.Range(minGenTime - genTimeRandomRange, minGenTime);
 
             Vector3 arrowPos;
             do
             {
                 arrowPos = randEdgePosition();
             } while ((arrowPos - hero.transform.position).magnitude < 1f);
-
-
+            
             ArrowMove arrowMoveScript = ((GameObject)Instantiate(arrow, arrowPos, arrow.transform.rotation)).GetComponent<ArrowMove>();
             arrowMoveScript.hero = hero;
             arrowMoveScript.gameController = this;
-            arrowMoveScript.speed = Mathf.Clamp(Mathf.Pow(1.05f, difficulty), 1f, 10f);
+            arrowMoveScript.speed = arrowSpeed;
         }
     }
 

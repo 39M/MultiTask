@@ -22,7 +22,7 @@ public class WASDController : BaseController
 
         //Vector3 currentPos = transform.position;
         //speed = 5 * Time.deltaTime;
-        speed = 10f;
+        speed = 15f;
 
         if (Input.GetKey(keyUp))
         {
