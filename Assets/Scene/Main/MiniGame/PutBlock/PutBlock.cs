@@ -10,7 +10,7 @@ public class PutBlock : BaseGame
     Color countdownBarColor;
     int col_count = 3;
     public bool success = false;
-    float countDown = 20f;
+    float countDown = 75f;
     int max_block;
     int[] blocks_count;
     List<List<GameObject>> all_blocks = new List<List<GameObject>>();
