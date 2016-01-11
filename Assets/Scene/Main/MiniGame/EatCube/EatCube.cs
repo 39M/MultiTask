@@ -9,6 +9,11 @@ public class EatCube : BaseGame
     public GameObject floorLimit;
     public GameObject edgeLimit;
 
+    float foodGenTime;
+    float foodGenMinTime;
+    float foodGenTimeRandomRange;
+    float foodLifeTime;
+
     float foodScalehalf = 0.5f;
     float timer = float.MaxValue;
 
@@ -25,18 +30,28 @@ public class EatCube : BaseGame
         hero.GetComponent<WASDController>().gameController = this;
     }
 
+    public void SetDifficulty()
+    {
+        foodGenTime = 4f * Mathf.Pow(0.95f, difficulty);
+        foodGenMinTime = -0.25f;
+        foodGenTimeRandomRange = 4f * Mathf.Pow(0.85f, difficulty);
+        foodLifeTime = Mathf.Clamp(15f * Mathf.Pow(0.95f, difficulty), 7.5f, 15f);
+    }
+
     public override void Update()
     {
         if (destroy || gameover)
             return;
 
-        if (timer < 4f * Mathf.Pow(0.935f, difficulty))
+        SetDifficulty();
+
+        if (timer < foodGenTime)
         {
             timer += Time.deltaTime;
         }
         else
         {
-            timer = Random.Range(-0.1f - 4f * Mathf.Pow(0.825f, difficulty), -0.1f);
+            timer = Random.Range(foodGenMinTime - foodGenTimeRandomRange, foodGenMinTime);
             Vector3 foodPos;
             do
             {
@@ -46,7 +61,7 @@ public class EatCube : BaseGame
 
             FoodController fc = ((GameObject)Instantiate(food, foodPos, food.transform.rotation)).GetComponent<FoodController>();
             fc.gameController = this;
-            fc.totalTime = Mathf.Clamp(15f * Mathf.Pow(0.95f, difficulty), 7f, 15f);
+            fc.totalTime = foodLifeTime;
         }
     }
 
