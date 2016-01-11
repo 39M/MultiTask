@@ -10,6 +10,12 @@ public class EvadeTrackingMissile : BaseGame
     public GameObject edgeLimit;
     float timer = float.MaxValue;
 
+    float missileGenTime;
+    float missileMinGenTime;
+    float missileGenTimeRandomRange;
+    float missileMaxSpeed;
+    float missileFlexibility;
+
     public override void Start()
     {
         base.Start();
@@ -23,17 +29,26 @@ public class EvadeTrackingMissile : BaseGame
         hero.GetComponent<WASDController>().gameController = this;
     }
 
+    public void SetDifficulty()
+    {
+        missileGenTime = 6f * Mathf.Pow(0.925f, difficulty);
+        missileMinGenTime = -0.5f;
+        missileGenTimeRandomRange = 4f * Mathf.Pow(0.925f, difficulty);
+        missileMaxSpeed = Mathf.Clamp(Mathf.Pow(1.05f, difficulty), 1f, 7.5f);
+        missileFlexibility = Random.Range(0.01f, 0.05f);
+    }
+
     public override void Update()
     {
         if (destroy || gameover)
             return;
 
-        base.Update();
+        SetDifficulty();
 
-        if (timer >= 6f * Mathf.Pow(0.9f, difficulty))
+        if (timer >= missileGenTime)
         {
-            timer = Random.Range(-0.1f - 4f * Mathf.Pow(0.9f, difficulty), -0.1f);
-            CreateMissile(Mathf.Clamp(Mathf.Pow(1.05f, difficulty), 1f, 10f), Random.Range(0.01f, 0.05f));
+            timer = Random.Range(missileMinGenTime - missileGenTimeRandomRange, missileMinGenTime);
+            CreateMissile(missileMaxSpeed, missileFlexibility);
         }
         else
         {

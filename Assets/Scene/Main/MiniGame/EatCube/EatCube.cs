@@ -10,7 +10,7 @@ public class EatCube : BaseGame
     public GameObject edgeLimit;
 
     float foodGenTime;
-    float foodGenMinTime;
+    float foodMinGenTime;
     float foodGenTimeRandomRange;
     float foodLifeTime;
 
@@ -33,7 +33,7 @@ public class EatCube : BaseGame
     public void SetDifficulty()
     {
         foodGenTime = 4f * Mathf.Pow(0.95f, difficulty);
-        foodGenMinTime = -0.25f;
+        foodMinGenTime = -0.25f;
         foodGenTimeRandomRange = 4f * Mathf.Pow(0.85f, difficulty);
         foodLifeTime = Mathf.Clamp(15f * Mathf.Pow(0.95f, difficulty), 7.5f, 15f);
     }
@@ -51,7 +51,7 @@ public class EatCube : BaseGame
         }
         else
         {
-            timer = Random.Range(foodGenMinTime - foodGenTimeRandomRange, foodGenMinTime);
+            timer = Random.Range(foodMinGenTime - foodGenTimeRandomRange, foodMinGenTime);
             Vector3 foodPos;
             do
             {
