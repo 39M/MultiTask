@@ -10,8 +10,8 @@ public class PutBlock : BaseGame
     Color countdownBarColor;
     int col_count = 3;
     public bool success = false;
-    float countDown = 12f;
-    int max_block = 9;
+    float countDown = 20f;
+    int max_block;
     int[] blocks_count;
     List<List<GameObject>> all_blocks = new List<List<GameObject>>();
 
@@ -19,26 +19,34 @@ public class PutBlock : BaseGame
     {
         base.Start();
 
+        max_block = (int)difficulty + 5;
+
         // Ensure col_count won't over flow
         col_count = Mathf.Clamp(col_count, 1, 3);
 
+        var blockScale = new Vector3(200, ((endY - startY) * 80) / (max_block + 1), 1);
+
         // Create countdown bar
-        countdownBar = CreateGameObjectWithRatio(countdownBar, 0.5f, 0.03f);
-        countdownBar.transform.localScale = new Vector3(countDown / 8 * 500, 10, 1);
+        countdownBar = CreateGameObjectWithRatio(countdownBar, 0.5f, 0.025f);
+        countdownBar.transform.localScale = new Vector3(650, 10, 1);
         countdownBarRenderer = countdownBar.GetComponent<SpriteRenderer>();
         countdownBarColor = countdownBarRenderer.color;
+
 
         // Randomly create blocks
         blocks_count = new int[col_count];
         for (int i = 0; i < col_count; i++)
         {
             all_blocks.Add(new List<GameObject>());
-            int block_num = Random.Range(3, max_block);
+            int block_num = Random.Range(1, max_block - (int)Mathf.Floor(50f / blockScale.y));
             for (int j = 0; j < block_num; j++)
             {
                 float percentageX = (i + 1) / (col_count + 1f);
-                float percentageY = (j + 1) * 0.1f;
-                all_blocks[i].Add(CreateGameObjectWithRatio(block, percentageX, percentageY));
+                // position + half scale + countdownBar space                
+                float percentageY = j / (max_block + 1f) + blockScale.y / 2 / ((endY - startY) * 100) + 0.05f;
+                var blk = CreateGameObjectWithRatio(block, percentageX, percentageY);
+                blk.transform.localScale = blockScale;
+                all_blocks[i].Add(blk);
             }
         }
     }
@@ -99,7 +107,7 @@ public class PutBlock : BaseGame
 
         // Countdown
         countDown -= Time.deltaTime;
-        countdownBar.transform.localScale = new Vector3(countDown / 8 * 500, 10, 1);
+        countdownBar.transform.localScale = new Vector3(countDown / 20 * 650, 10, 1);
         if (countDown < 0)
         {
             gameover = true;
