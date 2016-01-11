@@ -10,7 +10,7 @@ public class PutBlock : BaseGame
     Color countdownBarColor;
     int col_count = 3;
     public bool success = false;
-    float countDown = 75f;
+    float countDown = 20f;
     int max_block;
     int[] blocks_count;
     List<List<GameObject>> all_blocks = new List<List<GameObject>>();
@@ -19,7 +19,7 @@ public class PutBlock : BaseGame
     {
         base.Start();
 
-        max_block = (int)difficulty + 5;
+        max_block = Mathf.Clamp((int)difficulty + 5, 5, 75);
 
         // Ensure col_count won't over flow
         col_count = Mathf.Clamp(col_count, 1, 3);
