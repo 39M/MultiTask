@@ -33,8 +33,8 @@ public class Helicopter : BaseGame
     public void SetDifficulty()
     {
         blockGenTime = 3f * Mathf.Pow(0.92f, difficulty);
-        blockMinGenTime = -0.75f;
-        blockGenTimeRandomRange = 2f * Mathf.Pow(0.95f, difficulty);
+        blockMinGenTime = -0.5f;
+        blockGenTimeRandomRange = Mathf.Clamp(2f * Mathf.Pow(0.95f, difficulty), 0.5f, float.MaxValue);
         blockHeight = Mathf.Clamp(Random.Range(150, 200) * Mathf.Pow(1.02f, difficulty), 100, 330);
         blockMoveSpeed = Mathf.Clamp(2 * Mathf.Pow(1.04f, difficulty), 0, 5f);
         doubleBlockPossibility = Mathf.Pow(0.975f, difficulty);
