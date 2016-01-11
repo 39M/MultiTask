@@ -4,6 +4,7 @@ using System.Collections;
 public class KeepItUpBallMove : MonoBehaviour
 {
     public BaseGame gameController;
+    public float speed;
     Rigidbody2D rb;
 
     // Use this for initialization
@@ -11,7 +12,7 @@ public class KeepItUpBallMove : MonoBehaviour
     {
         Vector2 direction = new Vector2(Random.Range(0.25f, 0.75f), Random.Range(0.3f, 0.7f));
         rb = gameObject.GetComponent<Rigidbody2D>();
-        rb.AddForce(direction.normalized / 3f * Mathf.Pow(1.045f, gameController.difficulty), ForceMode2D.Impulse);
+        rb.AddForce(direction.normalized * speed, ForceMode2D.Impulse);
     }
 
     // Update is called once per frame
