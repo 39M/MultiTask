@@ -10,6 +10,13 @@ public class Helicopter : BaseGame
     public int controlMethod;
     float timer = float.MaxValue;
 
+    float blockGenTime;
+    float blockMinGenTime;
+    float blockGenTimeRandomRange;
+    float blockHeight;
+    float blockMoveSpeed;
+    float doubleBlockPossibility;
+
     public override void Start()
     {
         base.Start();
@@ -23,18 +30,30 @@ public class Helicopter : BaseGame
         controlMethod = Random.Range(0, 3);
     }
 
+    public void SetDifficulty()
+    {
+        blockGenTime = 3f * Mathf.Pow(0.92f, difficulty);
+        blockMinGenTime = -0.75f;
+        blockGenTimeRandomRange = 2f * Mathf.Pow(0.95f, difficulty);
+        blockHeight = Mathf.Clamp(Random.Range(150, 200) * Mathf.Pow(1.02f, difficulty), 100, 330);
+        blockMoveSpeed = Mathf.Clamp(2 * Mathf.Pow(1.04f, difficulty), 0, 5f);
+        doubleBlockPossibility = Mathf.Pow(0.975f, difficulty);
+    }
+
     public override void Update()
     {
         if (destroy || gameover)
             return;
 
+        SetDifficulty();
+
         timer += Time.deltaTime;
         plane.GetComponent<PlaneController>().controlMethod = controlMethod;
 
         // Generate a new block
-        if (timer > 3f * Mathf.Pow(0.92f, difficulty))
+        if (timer > blockGenTime)
         {
-            if (Random.value > Mathf.Pow(0.95f, difficulty))
+            if (Random.value > doubleBlockPossibility)
             {
                 GenerateBlock(1);
                 GenerateBlock(2);
@@ -43,13 +62,14 @@ public class Helicopter : BaseGame
             {
                 GenerateBlock(Random.Range(0, 3));
             }
+            timer = Random.Range(blockMinGenTime - blockGenTimeRandomRange, blockMinGenTime);
         }
     }
 
     public void GenerateBlock(int blockPos)
     {
         var b = CreateGameObjectWithRatio(block, 0.95f);
-        float scaleY = Mathf.Clamp(Random.Range(150, 200) * Mathf.Pow(1.02f, difficulty), 100, 350);
+        float scaleY = blockHeight;
         b.transform.localScale = new Vector3(25, scaleY, 1);
 
         if (blockPos == 1)
@@ -58,8 +78,7 @@ public class Helicopter : BaseGame
             b.transform.Translate(0, endY - scaleY / 200f, 0);
 
         b.GetComponent<BlockMove>().gameController = this;
-        b.GetComponent<BlockMove>().moveSpeed = Mathf.Clamp(2 * Mathf.Pow(1.04f, difficulty), 0, 5f);
-        timer = Random.Range(-0.75f - 2f * Mathf.Pow(0.92f, difficulty), -0.75f);
+        b.GetComponent<BlockMove>().moveSpeed = blockMoveSpeed;
     }
 
     public override void End()

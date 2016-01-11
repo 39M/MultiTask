@@ -63,7 +63,7 @@ public class PlaneController : BaseController
         if (upKeyDown)
         {
             //rb.AddForce(new Vector2(0, force * 20), ForceMode2D.Impulse);
-            rb.velocity = new Vector2(0, 5f);
+            rb.velocity = new Vector2(0, 6f);
             upKeyDown = false;
         }
     }

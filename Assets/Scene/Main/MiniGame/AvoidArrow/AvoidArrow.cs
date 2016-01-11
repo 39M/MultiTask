@@ -8,9 +8,9 @@ public class AvoidArrow : BaseGame
     public GameObject ceilingLimit;
     public GameObject floorLimit;
     public GameObject edgeLimit;
-    float blockGenTime;
-    float blockMinGenTime;
-    float blockGenTimeRandomRange;
+    float arrowGenTime;
+    float arrowMinGenTime;
+    float arrowGenTimeRandomRange;
     float arrowSpeed;
 
     float timer = float.MaxValue;
@@ -34,11 +34,11 @@ public class AvoidArrow : BaseGame
     public void SetDifficulty()
     {
         // Generate time between two block
-        blockGenTime = 4f * Mathf.Pow(0.9f, difficulty);
+        arrowGenTime = 4f * Mathf.Pow(0.9f, difficulty);
         // Min generate time
-        blockMinGenTime = -0.15f;
+        arrowMinGenTime = -0.15f;
         // Random range
-        blockGenTimeRandomRange = Mathf.Pow(0.9f, difficulty);
+        arrowGenTimeRandomRange = Mathf.Pow(0.9f, difficulty);
         // Arrow move speed
         arrowSpeed = Mathf.Clamp(Mathf.Pow(1.05f, difficulty), 1f, 7.5f);
     }
@@ -50,13 +50,13 @@ public class AvoidArrow : BaseGame
 
         SetDifficulty();
 
-        if (timer < blockGenTime)
+        if (timer < arrowGenTime)
         {
             timer += Time.deltaTime;
         }
         else
         {
-            timer = Random.Range(blockMinGenTime - blockGenTimeRandomRange, blockMinGenTime);
+            timer = Random.Range(arrowMinGenTime - arrowGenTimeRandomRange, arrowMinGenTime);
 
             Vector3 arrowPos;
             do
