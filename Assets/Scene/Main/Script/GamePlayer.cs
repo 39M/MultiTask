@@ -26,7 +26,7 @@ public class GamePlayer : MonoBehaviour
     // Left and right game type index
     int LeftGameType, RightGameType;
     // Difficulty
-    float difficulty = 5f;
+    float difficulty = 0f;
 
     // Game switch rate
     float switchTime = 10f;
@@ -75,7 +75,7 @@ public class GamePlayer : MonoBehaviour
         offset = (endX - startX) / 4.0f;
 
         // Difficulty setting
-        switch(GlobalProperty.mode)
+        switch (GlobalProperty.mode)
         {
             case 1:
                 difficulty = 10;
@@ -105,6 +105,8 @@ public class GamePlayer : MonoBehaviour
         StartGame(true, LeftGameType);
         RightGameType = -1;
         // RightGame = null;
+
+        scoreTimer = Time.time;
     }
 
     // Update is called once per frame
@@ -120,7 +122,7 @@ public class GamePlayer : MonoBehaviour
         {
             if (gameoverFirst == 0)
             {
-                scoreTimer = Time.time;
+                scoreTimer = Time.time - scoreTimer;
                 if (LeftGame.isGameOver())
                 {
                     gameoverFirst = -1;
@@ -342,9 +344,15 @@ public class GamePlayer : MonoBehaviour
     // End all games
     void GameOver()
     {
-        gameover = true;        
-        Debug.Log("Survive Time: " + scoreTimer);
+        gameover = true;
         EndGame(true);
         EndGame(false);
+
+        GlobalProperty.finalScore = scoreTimer;
+        if (!PlayerPrefs.HasKey("BestScore") || PlayerPrefs.GetFloat("BestScore") < scoreTimer)
+            PlayerPrefs.SetFloat("BestScore", scoreTimer);        
+
+        Debug.Log("Survive Time: " + scoreTimer);
+        Application.LoadLevel("GameOver");
     }
 }

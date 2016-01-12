@@ -6,5 +6,5 @@ public class GlobalProperty
     public static bool mute;
 
     public static int mode;
-    public static int finalScore;
+    public static float finalScore;
 }
