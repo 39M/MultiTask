@@ -16,6 +16,7 @@
 /obj
 /Temp
 /Doc
+/Executable
 ExportedObj/
 Temp/
 tmpfile/
