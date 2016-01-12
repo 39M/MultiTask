@@ -52,7 +52,8 @@ public class GamePlayer : MonoBehaviour
     bool blinkOut = true;
     // Blink time
     int blinkTime = 3;
-
+    // Game over, start fade out flag
+    bool fadeOutStart = false;
     // Score timer
     float scoreTimer = 0;
 
@@ -90,12 +91,12 @@ public class GamePlayer : MonoBehaviour
 
         // Init fade cover
         LeftCover = Instantiate(fadeCover);
-        LeftCover.transform.Translate(-offset, 0, 0);
+        LeftCover.transform.Translate(-offset - 0.03f, 0, 0);
         LeftCover.transform.localScale = new Vector3(50 * (endX - startX), 100 * (endY - startY), 1);
         LeftCoverRenderer = LeftCover.GetComponent<SpriteRenderer>();
         LeftCoverColor = LeftCoverRenderer.color;
         RightCover = Instantiate(fadeCover);
-        RightCover.transform.Translate(offset, 0, 0);
+        RightCover.transform.Translate(offset + 0.03f, 0, 0);
         RightCover.transform.localScale = new Vector3(50 * (endX - startX), 100 * (endY - startY), 1);
         RightCoverRenderer = RightCover.GetComponent<SpriteRenderer>();
         RightCoverColor = RightCoverRenderer.color;
@@ -139,6 +140,25 @@ public class GamePlayer : MonoBehaviour
 
             if (blinkTime <= 0)
             {
+                if (!fadeOutStart)
+                {
+                    fadeOutStart = true;
+                    LeftCover.transform.Translate(0.03f, 0, 0);
+                    RightCover.transform.Translate(-0.03f, 0, 0);
+
+                    if (!LeftGame)
+                    {
+                        LeftCoverColor.a = 0;
+                        LeftCoverRenderer.color = LeftCoverColor;
+                    }
+
+                    if (!RightGame)
+                    {
+                        RightCoverColor.a = 0;
+                        RightCoverRenderer.color = RightCoverColor;
+                    }
+                }
+
                 // Fade out
                 gameoverTimer += Time.deltaTime;
                 if (gameoverTimer > 0 && gameoverTimer < fadeTime + 0.1f)
@@ -350,7 +370,7 @@ public class GamePlayer : MonoBehaviour
 
         GlobalProperty.finalScore = scoreTimer;
         if (!PlayerPrefs.HasKey("BestScore") || PlayerPrefs.GetFloat("BestScore") < scoreTimer)
-            PlayerPrefs.SetFloat("BestScore", scoreTimer);        
+            PlayerPrefs.SetFloat("BestScore", scoreTimer);
 
         Debug.Log("Survive Time: " + scoreTimer);
         Application.LoadLevel("GameOver");
