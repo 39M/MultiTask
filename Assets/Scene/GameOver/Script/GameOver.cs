@@ -1,33 +1,50 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
-public class GameOver : MonoBehaviour
+public class GameOver : BaseScene
 {
     public Text ScoreText;
     public Text BestScoreText;
 
+    bool retry = false;
+    bool back = false;
 
-    // Use this for initialization
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         ScoreText.text = GlobalProperty.finalScore.ToString("N2");
         BestScoreText.text = "Best: " + PlayerPrefs.GetFloat("BestScore").ToString("N2");
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-
+        base.Update();
+        
     }
 
     public void Retry()
     {
-        Application.LoadLevel("Main");
+        retry = true;
     }
 
     public void Back()
     {
-        Application.LoadLevel("Title");
+        back = true;        
+    }
+
+    public override bool FadeOutCondition()
+    {
+        return retry || back;
+    }
+
+    public override void AfterFadeOut()
+    {
+        if (retry)
+            Application.LoadLevel("Main");
+        if (back)
+            Application.LoadLevel("Title");
     }
 }

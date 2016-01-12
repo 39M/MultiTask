@@ -1,24 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Title : MonoBehaviour
+public class Title : BaseScene
 {
-    // Use this for initialization
-    void Start()
-    {
+    bool start = false;
 
+    public override void Start()
+    {
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        
+        base.Update();
     }
 
     public void StartGame(int mode)
     {
         GlobalProperty.mode = mode;
-        Application.LoadLevel("Main");
+        start = true;
     }
 
     public void Mute()
@@ -29,5 +30,15 @@ public class Title : MonoBehaviour
     public void More()
     {
         Debug.Log("Nothing more.");
+    }
+
+    public override bool FadeOutCondition()
+    {
+        return start;
+    }
+
+    public override void AfterFadeOut()
+    {
+        Application.LoadLevel("Main");
     }
 }
