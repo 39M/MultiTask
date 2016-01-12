@@ -74,6 +74,20 @@ public class GamePlayer : MonoBehaviour
         endY = endVector.y;
         offset = (endX - startX) / 4.0f;
 
+        // Difficulty setting
+        switch(GlobalProperty.mode)
+        {
+            case 1:
+                difficulty = 10;
+                break;
+            case 2:
+                difficulty = 20;
+                break;
+            default:
+                difficulty = 0;
+                break;
+        }
+
         // Init fade cover
         LeftCover = Instantiate(fadeCover);
         LeftCover.transform.Translate(-offset, 0, 0);
