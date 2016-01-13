@@ -8,6 +8,7 @@ public class GameOver : BaseScene
     public Text ScoreText;
     public Text BestScoreText;
 
+    float displayScore = 0f;
     bool retry = false;
     bool back = false;
 
@@ -15,14 +16,16 @@ public class GameOver : BaseScene
     {
         base.Start();
 
-        ScoreText.text = GlobalProperty.finalScore.ToString("N2");
+        ScoreText.text = displayScore.ToString("N2");
         BestScoreText.text = "Best: " + PlayerPrefs.GetFloat("BestScore").ToString("N2");
     }
 
     public override void Update()
     {
         base.Update();
-        
+
+        ScoreText.text = displayScore.ToString("N2");
+        displayScore = Mathf.Lerp(displayScore, GlobalProperty.finalScore, 0.05f);
     }
 
     public void Retry()
