@@ -27,7 +27,12 @@ public class Helicopter : BaseGame
         plane = CreateGameObjectWithRatio(plane, 1 / 5f);
         plane.GetComponent<PlaneController>().isLeft = isLeft;
         plane.GetComponent<PlaneController>().gameController = this;
-        controlMethod = Random.Range(0, 2);
+        controlMethod = Random.Range(0, 3);
+        plane.GetComponent<PlaneController>().controlMethod = controlMethod;
+        if (controlMethod == 0)
+            plane.transform.Translate(0, -(endY - startY) / 2f + 0.25f, 0);
+        if (controlMethod == 1)
+            plane.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 6f);
     }
 
     public void SetDifficulty()
@@ -53,7 +58,7 @@ public class Helicopter : BaseGame
         // Generate a new block
         if (timer > blockGenTime)
         {
-            if (Random.value > doubleBlockPossibility)
+            if (controlMethod != 2 && Random.value > doubleBlockPossibility)
             {
                 GenerateBlock(1);
                 GenerateBlock(2);

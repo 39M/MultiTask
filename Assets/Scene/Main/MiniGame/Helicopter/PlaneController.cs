@@ -6,18 +6,20 @@ public class PlaneController : BaseController
     public int controlMethod;
     float force = 0.4f;
     Rigidbody2D rb;
-    bool upKeyDown = false;
+    bool reverseKeyDown = false;
 
     public override void Start()
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
+        if (controlMethod == 2)
+            rb.gravityScale *= -3f;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(keyUp))
-            upKeyDown = true;
+        if (Input.GetKeyDown(keyUp) || Input.GetKeyDown(keyDown))
+            reverseKeyDown = true;
     }
 
     void FixedUpdate()
@@ -60,20 +62,20 @@ public class PlaneController : BaseController
 
     void FlappyController()
     {
-        if (upKeyDown)
+        if (reverseKeyDown)
         {
             //rb.AddForce(new Vector2(0, force * 20), ForceMode2D.Impulse);
             rb.velocity = new Vector2(0, 6f);
-            upKeyDown = false;
+            reverseKeyDown = false;
         }
     }
 
     void AntiGravityController()
     {
-        if (upKeyDown)
+        if (reverseKeyDown)
         {
             rb.gravityScale = -rb.gravityScale;
-            upKeyDown = false;
+            reverseKeyDown = false;
         }
     }
 }
