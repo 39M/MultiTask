@@ -60,7 +60,7 @@ public abstract class BaseController : MonoBehaviour
         {
             if (phase == null || touch.phase == phase)
                 if (touch.position.y > beginPixel && touch.position.y < endPixel)
-                    return true;
+                    return TouchAnyWhere(phase);
         }
         return false;
     }

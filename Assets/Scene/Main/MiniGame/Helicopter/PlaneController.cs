@@ -48,15 +48,15 @@ public class PlaneController : BaseController
     void ClassicHelicopterController()
     {
         // Move plane up
-        if (Input.GetKey(keyUp) || TouchUp())
+        if (Input.GetKey(keyUp) || TouchInAreaY(1 / 5f, 1f))
         {
             rb.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
         }
 
         // Move plane down
-        if (Input.GetKey(keyDown) || TouchDown())
+        if (Input.GetKey(keyDown) || TouchInAreaY(0, 1 / 5f))
         {
-            rb.AddForce(new Vector2(0, -force / 2f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, -force), ForceMode2D.Impulse);
         }
     }
 
