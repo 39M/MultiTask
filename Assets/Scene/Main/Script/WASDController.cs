@@ -10,7 +10,6 @@ public class WASDController : BaseController
     int currentTouchID;
     Vector2 touchBeginPosition;
     Vector2 moveDirection;
-    //bool touchMoveUp = false, touchMoveDown = false, touchMoveLeft = false, touchMoveRight = false;
 
     public override void Start()
     {
@@ -43,29 +42,15 @@ public class WASDController : BaseController
             if (currentTouch.phase == TouchPhase.Ended)
             {
                 touching = false;
-                //touchMoveUp = touchMoveDown = touchMoveLeft = touchMoveRight = false;
             }
             else
             {
                 moveDirection = currentTouch.position - touchBeginPosition;
                 moveDirection.x = Mathf.Clamp(moveDirection.x, -195, 195) / 13;
                 moveDirection.y = Mathf.Clamp(moveDirection.y, -195, 195) / 13;
-
-                //touchMoveUp = currentTouch.position.y > touchBeginPosition.y;
-                //touchMoveDown = currentTouch.position.y < touchBeginPosition.y;
-                //touchMoveLeft = currentTouch.position.x < touchBeginPosition.x;
-                //touchMoveRight = currentTouch.position.x > touchBeginPosition.x;
             }
         }
     }
-
-    //void OnGUI()
-    //{
-    //    GUIStyle s = new GUIStyle();
-    //    s.fontSize = 32;
-    //    GUILayout.Label(currentTouch.position.ToString(), s);
-    //    GUILayout.Label(touchBeginPosition.ToString(), s);
-    //}
 
     public virtual void FixedUpdate()
     {
@@ -81,7 +66,11 @@ public class WASDController : BaseController
 
         if (touching)
         {
-            rb.AddForce(moveDirection);
+            //rb.AddForce(moveDirection);
+            var moveTo = (Camera.main.ScreenToWorldPoint(currentTouch.position) - transform.position);
+            moveTo.x = Mathf.Clamp(moveTo.x, -2, 2) * 7.5f;
+            moveTo.y = Mathf.Clamp(moveTo.y, -2, 2) * 7.5f;
+            rb.AddForce(moveTo);
         }
 
         if (Input.GetKey(keyUp))
