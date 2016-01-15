@@ -27,7 +27,7 @@ public class AvoidArrow : BaseGame
 
         hero = CreateGameObject(hero);
         var heroController = hero.GetComponent<AvoidArrowHeroController>();
-        heroController.gameController = this;
+        heroController.baseGame = this;
         heroController.isLeft = isLeft;
     }
 

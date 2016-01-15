@@ -19,7 +19,7 @@ public class JumpOverBlock : BaseGame
 
         rect = CreateGameObjectWithRatio(rect, 0.2f);
         rect.GetComponent<RectController>().isLeft = isLeft;
-        rect.GetComponent<RectController>().gameController = this;
+        rect.GetComponent<RectController>().baseGame = this;
 
         land = CreateGameObject(land);
         land.transform.localScale = new Vector3((endX - startX) * 100f, 20, 1);

@@ -26,7 +26,7 @@ public class Helicopter : BaseGame
 
         plane = CreateGameObjectWithRatio(plane, 1 / 5f);
         plane.GetComponent<PlaneController>().isLeft = isLeft;
-        plane.GetComponent<PlaneController>().gameController = this;
+        plane.GetComponent<PlaneController>().baseGame = this;
         controlMethod = Random.Range(0, 3);
         plane.GetComponent<PlaneController>().controlMethod = controlMethod;
         if (controlMethod == 0)

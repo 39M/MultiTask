@@ -21,7 +21,7 @@ public class PutBlock : BaseGame
         base.Start();
 
         controller = GetComponent<PutBlockController>();
-        controller.gameController = this;
+        controller.baseGame = this;
 
         max_block = Mathf.Clamp((int)difficulty + 5, 5, 75);
 

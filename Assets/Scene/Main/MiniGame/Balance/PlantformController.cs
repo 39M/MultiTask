@@ -16,7 +16,7 @@ public class PlantformController : BaseController
 
     void FixedUpdate()
     {
-        if (gameController.gameover)
+        if (baseGame.gameover)
             return;
 
         if (Input.GetKey(keyLeft) || TouchLeft())

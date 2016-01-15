@@ -5,7 +5,7 @@ public abstract class BaseController : MonoBehaviour
 {
     public bool isLeft;
     public KeyCode keyUp, keyDown, keyRight, keyLeft;
-    public BaseGame gameController = null;
+    public BaseGame baseGame = null;
 
     public virtual void Start()
     {
@@ -28,8 +28,8 @@ public abstract class BaseController : MonoBehaviour
     // Check touch in a horizontally area
     public bool TouchInAreaX(float beginRatio, float endRatio, TouchPhase? phase = null)
     {
-        int beginPixel = (int)(gameController.screenWidth * beginRatio) + gameController.screenStartX;
-        int endPixel = (int)(gameController.screenWidth * endRatio) + gameController.screenStartX;
+        int beginPixel = (int)(baseGame.screenWidth * beginRatio) + baseGame.screenStartX;
+        int endPixel = (int)(baseGame.screenWidth * endRatio) + baseGame.screenStartX;
         foreach (var touch in Input.touches)
         {
             if (phase == null || touch.phase == phase)
@@ -45,7 +45,7 @@ public abstract class BaseController : MonoBehaviour
         foreach (var touch in Input.touches)
         {
             if (phase == null || touch.phase == phase)
-                if (touch.position.x > gameController.screenStartX && touch.position.x < gameController.screenEndX)
+                if (touch.position.x > baseGame.screenStartX && touch.position.x < baseGame.screenEndX)
                     return true;
         }
         return false;
@@ -54,8 +54,8 @@ public abstract class BaseController : MonoBehaviour
     // Check touch in a vertical area
     public bool TouchInAreaY(float beginRatio, float endRatio, TouchPhase? phase = null)
     {
-        int beginPixel = (int)(gameController.screenHeight * beginRatio) + gameController.screenStartY;
-        int endPixel = (int)(gameController.screenHeight * endRatio) + gameController.screenStartY;
+        int beginPixel = (int)(baseGame.screenHeight * beginRatio) + baseGame.screenStartY;
+        int endPixel = (int)(baseGame.screenHeight * endRatio) + baseGame.screenStartY;
         foreach (var touch in Input.touches)
         {
             if (phase == null || touch.phase == phase)
@@ -71,7 +71,7 @@ public abstract class BaseController : MonoBehaviour
         foreach (var touch in Input.touches)
         {
             if (phase == null || touch.phase == phase)
-                if (touch.position.x > gameController.screenStartX && touch.position.x < gameController.screenMiddleX)
+                if (touch.position.x > baseGame.screenStartX && touch.position.x < baseGame.screenMiddleX)
                     return true;
         }
         return false;
@@ -83,7 +83,7 @@ public abstract class BaseController : MonoBehaviour
         foreach (var touch in Input.touches)
         {
             if (phase == null || touch.phase == phase)
-                if (touch.position.x > gameController.screenMiddleX && touch.position.x < gameController.screenEndX)
+                if (touch.position.x > baseGame.screenMiddleX && touch.position.x < baseGame.screenEndX)
                     return true;
         }
         return false;
@@ -95,7 +95,7 @@ public abstract class BaseController : MonoBehaviour
         foreach (var touch in Input.touches)
         {
             if (phase == null || touch.phase == phase)
-                if (touch.position.y > gameController.screenMiddleY && touch.position.y < gameController.screenEndY)
+                if (touch.position.y > baseGame.screenMiddleY && touch.position.y < baseGame.screenEndY)
                     return TouchAnyWhere(phase);
         }
         return false;
@@ -107,7 +107,7 @@ public abstract class BaseController : MonoBehaviour
         foreach (var touch in Input.touches)
         {
             if (phase == null || touch.phase == phase)
-                if (touch.position.y > gameController.screenStartY && touch.position.y < gameController.screenMiddleY)
+                if (touch.position.y > baseGame.screenStartY && touch.position.y < baseGame.screenMiddleY)
                     return TouchAnyWhere(phase);
         }
         return false;

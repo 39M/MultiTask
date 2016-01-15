@@ -39,8 +39,8 @@ public class WASDController : BaseController
         if (touching)
         {
             currentTouch = Input.GetTouch(currentTouchID);
-            if (currentTouch.phase == TouchPhase.Ended || currentTouch.position.x <= gameController.screenStartX ||
-                currentTouch.position.x >= gameController.screenEndX)
+            if (currentTouch.phase == TouchPhase.Ended || currentTouch.position.x <= baseGame.screenStartX ||
+                currentTouch.position.x >= baseGame.screenEndX)
             {
                 touching = false;
             }
@@ -55,7 +55,7 @@ public class WASDController : BaseController
 
     public virtual void FixedUpdate()
     {
-        if (gameController && gameController.gameover)
+        if (baseGame && baseGame.gameover)
         {
             rb.velocity = Vector3.zero;
             return;

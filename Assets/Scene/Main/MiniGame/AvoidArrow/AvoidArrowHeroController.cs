@@ -6,6 +6,6 @@ public class AvoidArrowHeroController : WASDController
     {
         // When collide with block, game over
         if (other.gameObject.tag == "Block")
-            gameController.gameover = true;
+            baseGame.gameover = true;
     }
 }

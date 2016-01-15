@@ -26,7 +26,7 @@ public class EvadeTrackingMissile : BaseGame
 
         hero = CreateGameObject(hero);
         hero.GetComponent<WASDController>().isLeft = isLeft;
-        hero.GetComponent<WASDController>().gameController = this;
+        hero.GetComponent<WASDController>().baseGame = this;
     }
 
     public void SetDifficulty()

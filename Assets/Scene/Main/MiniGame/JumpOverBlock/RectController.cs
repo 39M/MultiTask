@@ -23,7 +23,7 @@ public class RectController : BaseController
 
     void FixedUpdate()
     {
-        if (gameController.gameover)
+        if (baseGame.gameover)
         {
             rb.isKinematic = true;
             rb.velocity = Vector3.zero;
