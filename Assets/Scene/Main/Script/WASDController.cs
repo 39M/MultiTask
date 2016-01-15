@@ -39,7 +39,8 @@ public class WASDController : BaseController
         if (touching)
         {
             currentTouch = Input.GetTouch(currentTouchID);
-            if (currentTouch.phase == TouchPhase.Ended)
+            if (currentTouch.phase == TouchPhase.Ended || currentTouch.position.x <= gameController.screenStartX ||
+                currentTouch.position.x >= gameController.screenEndX)
             {
                 touching = false;
             }
