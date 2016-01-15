@@ -16,6 +16,10 @@ public abstract class BaseGame : MonoBehaviour
     // World edge
     public float startX, endX;
     public float startY, endY;
+    // Screen edge
+    public int screenStartX, screenMiddleX, screenEndX;
+    public int screenStartY, screenMiddleY, screenEndY;
+    public int screenWidth, screenHeight;
     // Key code
     public KeyCode keyUp, keyDown, keyRight, keyLeft;
 
@@ -29,6 +33,11 @@ public abstract class BaseGame : MonoBehaviour
         {
             startVector = new Vector3(0, 0);
             endVector = new Vector3(0.5f, 1);
+
+            screenStartX = 0;
+            screenMiddleX = Screen.width / 4;
+            screenEndX = Screen.width / 2;
+
             keyUp = KeyCode.W;
             keyDown = KeyCode.S;
             keyLeft = KeyCode.A;
@@ -38,11 +47,23 @@ public abstract class BaseGame : MonoBehaviour
         {
             startVector = new Vector3(0.5f, 0);
             endVector = new Vector3(1, 1);
+
+            screenStartX = Screen.width / 2;
+            screenMiddleX = Screen.width * 3 / 4;
+            screenEndX = Screen.width;
+
             keyUp = KeyCode.UpArrow;
             keyDown = KeyCode.DownArrow;
             keyLeft = KeyCode.LeftArrow;
             keyRight = KeyCode.RightArrow;
         }
+
+        screenStartY = 0;
+        screenMiddleY = Screen.height / 2;
+        screenEndY = Screen.height;
+        screenWidth = screenEndX - screenStartX;
+        screenHeight = screenEndY - screenStartY;
+
         startVector = Camera.main.ViewportToWorldPoint(startVector);
         startX = startVector.x;
         startY = startVector.y;
