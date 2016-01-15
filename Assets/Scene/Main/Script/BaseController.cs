@@ -96,7 +96,7 @@ public abstract class BaseController : MonoBehaviour
         {
             if (phase == null || touch.phase == phase)
                 if (touch.position.y > gameController.screenMiddleY && touch.position.y < gameController.screenEndY)
-                    return true;
+                    return TouchAnyWhere(phase);
         }
         return false;
     }
@@ -108,7 +108,7 @@ public abstract class BaseController : MonoBehaviour
         {
             if (phase == null || touch.phase == phase)
                 if (touch.position.y > gameController.screenStartY && touch.position.y < gameController.screenMiddleY)
-                    return true;
+                    return TouchAnyWhere(phase);
         }
         return false;
     }
