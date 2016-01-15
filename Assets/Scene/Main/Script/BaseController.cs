@@ -112,4 +112,17 @@ public abstract class BaseController : MonoBehaviour
         }
         return false;
     }
+
+    public Vector3 TouchPointVector()
+    {
+        foreach (var touch in Input.touches)
+        {
+            if ((touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled &&
+            touch.position.x > baseGame.screenStartX && touch.position.x < baseGame.screenEndX))
+            {
+                return (Camera.main.ScreenToWorldPoint(touch.position) - transform.position);
+            }
+        }
+        return Vector3.zero;
+    }
 }

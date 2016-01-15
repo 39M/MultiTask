@@ -5,7 +5,7 @@ public class WASDController : BaseController
     public Rigidbody2D rb;
     public float speed;
     //float scale = 0.25f;
-    bool touching = false;
+    //bool touching = false;
     Touch currentTouch;
     int currentTouchID;
     //Vector2 touchBeginPosition;
@@ -86,8 +86,8 @@ public class WASDController : BaseController
                 }
             }
 
-            moveTo.x = Mathf.Clamp(moveTo.x, -2, 2) * 7.5f;
-            moveTo.y = Mathf.Clamp(moveTo.y, -2, 2) * 7.5f;
+            moveTo.x = Mathf.Clamp(moveTo.x, -2, 2) * speed / 2f;
+            moveTo.y = Mathf.Clamp(moveTo.y, -2, 2) * speed / 2f;
             rb.AddForce(moveTo);
         }
 
