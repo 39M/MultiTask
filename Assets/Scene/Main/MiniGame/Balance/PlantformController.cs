@@ -19,12 +19,12 @@ public class PlantformController : BaseController
         if (gameController.gameover)
             return;
 
-        if (Input.GetKey(keyLeft))
+        if (Input.GetKey(keyLeft) || TouchLeft())
         {
             rb.AddForceAtPosition(new Vector2(0, rotateStep), new Vector2(-1 + posOffset, 0));
         }
 
-        if (Input.GetKey(keyRight))
+        if (Input.GetKey(keyRight) || TouchRight())
         {
             rb.AddForceAtPosition(new Vector2(0, rotateStep), new Vector2(1 + posOffset, 0));
         }

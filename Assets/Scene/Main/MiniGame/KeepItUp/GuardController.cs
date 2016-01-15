@@ -23,14 +23,14 @@ public class GuardController : BaseController
 
         speed = 20;
 
-        if (Input.GetKey(keyLeft))
+        if (Input.GetKey(keyLeft) || TouchLeft())
         {
             //if (currentPos.x - speed - scale > gameController.startX)
             //transform.Translate(-speed, 0, 0);
             rb.AddForce(new Vector2(-speed, 0));
         }
 
-        if (Input.GetKey(keyRight))
+        if (Input.GetKey(keyRight) || TouchRight())
         {
             //if (currentPos.x + speed + scale < gameController.endX)
             //transform.Translate(speed, 0, 0);

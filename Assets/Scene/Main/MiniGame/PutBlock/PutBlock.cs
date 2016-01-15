@@ -6,6 +6,7 @@ public class PutBlock : BaseGame
 {
     public GameObject block;
     public GameObject countdownBar;
+    PutBlockController controller;
     SpriteRenderer countdownBarRenderer;
     Color countdownBarColor;
     int col_count = 3;
@@ -18,6 +19,9 @@ public class PutBlock : BaseGame
     public override void Start()
     {
         base.Start();
+
+        controller = GetComponent<PutBlockController>();
+        controller.gameController = this;
 
         max_block = Mathf.Clamp((int)difficulty + 5, 5, 75);
 
@@ -59,7 +63,7 @@ public class PutBlock : BaseGame
             return;
         }
 
-        if (col_count != 1 && Input.GetKeyDown(keyLeft))
+        if (col_count != 1 && (Input.GetKeyDown(keyLeft) || controller.touchLeft))
         {
             if (all_blocks[0].Count <= blocks_count[0])
             {
@@ -70,7 +74,7 @@ public class PutBlock : BaseGame
             blocks_count[0]++;
         }
 
-        if (col_count != 2 && Input.GetKeyDown(keyUp))
+        if (col_count != 2 && (Input.GetKeyDown(keyUp) || controller.touchMiddle))
         {
             int index_t = col_count == 1 ? 0 : 1;
             if (all_blocks[index_t].Count <= blocks_count[index_t])
@@ -82,7 +86,7 @@ public class PutBlock : BaseGame
             blocks_count[index_t]++;
         }
 
-        if (col_count != 1 && Input.GetKeyDown(keyRight))
+        if (col_count != 1 && (Input.GetKeyDown(keyRight) || controller.touchRight))
         {
             int index_t = col_count == 3 ? 2 : 1;
             if (all_blocks[index_t].Count <= blocks_count[index_t])

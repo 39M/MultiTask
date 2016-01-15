@@ -6,11 +6,19 @@ public class RectController : BaseController
     float force = 35f;
     Rigidbody2D rb;
     public bool onLand = true;
+    bool secondTouchEnable = false;
+    bool touchDown = false;
 
     public override void Start()
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        if (TouchAnyWhere(TouchPhase.Began))
+            touchDown = true;
     }
 
     void FixedUpdate()
@@ -22,21 +30,36 @@ public class RectController : BaseController
             return;
         }
 
-        if (Input.GetKey(keyUp) && onLand)
+        if (onLand)
         {
-            rb.AddForce(new Vector2(0, force));
-            onLand = false;
+            if ((Input.GetKey(keyUp) || touchDown))
+            {
+                rb.AddForce(new Vector2(0, force));
+                onLand = false;
+                touchDown = false;
+            }
         }
-
-        if (Input.GetKey(keyDown) && !onLand)
+        else
         {
-            rb.AddForce(new Vector2(0, -force / 2f));
+            if (touchDown)
+            {
+                secondTouchEnable = true;
+                touchDown = false;
+            }
+
+            if ((Input.GetKey(keyDown) || (secondTouchEnable && TouchAnyWhere())))
+            {
+                rb.AddForce(new Vector2(0, -force / 2f));
+            }
         }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Land")
+        {
             onLand = true;
+            secondTouchEnable = false;
+        }
     }
 }

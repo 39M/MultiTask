@@ -18,7 +18,7 @@ public class PlaneController : BaseController
 
     void Update()
     {
-        if (Input.GetKeyDown(keyUp) || Input.GetKeyDown(keyDown))
+        if (Input.GetKeyDown(keyUp) || Input.GetKeyDown(keyDown) || TouchAnyWhere(TouchPhase.Began))
             reverseKeyDown = true;
     }
 
@@ -48,13 +48,13 @@ public class PlaneController : BaseController
     void ClassicHelicopterController()
     {
         // Move plane up
-        if (Input.GetKey(keyUp))
+        if (Input.GetKey(keyUp) || TouchUp())
         {
             rb.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
         }
 
         // Move plane down
-        if (Input.GetKey(keyDown))
+        if (Input.GetKey(keyDown) || TouchDown())
         {
             rb.AddForce(new Vector2(0, -force / 2f), ForceMode2D.Impulse);
         }
