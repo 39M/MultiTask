@@ -4,7 +4,9 @@ using System;
 
 public class Title : BaseScene
 {
-    bool start = false;
+    bool startFadeOut = false;
+    bool startGame = false;
+    bool exitGame = false;
 
     public override void Start()
     {
@@ -14,12 +16,17 @@ public class Title : BaseScene
     public override void Update()
     {
         base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ExitGame();
+            
     }
 
     public void StartGame(int mode)
     {
         GlobalProperty.mode = mode;
-        start = true;
+        startFadeOut = true;
+        startGame = true;
     }
 
     public void Mute()
@@ -32,13 +39,23 @@ public class Title : BaseScene
         Debug.Log("Nothing more.");
     }
 
+    public void ExitGame()
+    {
+        startFadeOut = true;
+        exitGame = true;
+    }
+
     public override bool FadeOutCondition()
     {
-        return start;
+        return startFadeOut;
     }
 
     public override void AfterFadeOut()
     {
-        Application.LoadLevel("Main");
+        if (startGame)
+            Application.LoadLevel("Main");
+
+        if (exitGame)
+            Application.Quit();
     }
 }
