@@ -25,7 +25,7 @@ public class GameOver : BaseScene
         base.Update();
 
         ScoreText.text = displayScore.ToString("N2");
-        displayScore = Mathf.Lerp(displayScore, GlobalProperty.finalScore, 0.05f);
+        displayScore = Mathf.Lerp(displayScore, 64.15f, Time.deltaTime * 4f);
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Back();
