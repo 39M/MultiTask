@@ -17,9 +17,12 @@ public class FoodController : MonoBehaviour
     void Start()
     {
         render = gameObject.GetComponent<SpriteRenderer>();
+
         foodColor = render.color;
         foodColor.a = 0;
         render.color = foodColor;
+        foodColor.a = 1;
+
         leftTime = totalTime;
         originScale = gameObject.transform.localScale.x;
     }
@@ -37,30 +40,27 @@ public class FoodController : MonoBehaviour
         if (leftTime < 0)
             gameController.gameover = true;
 
-        float nextScale = leftTime / totalTime * originScale;
-        gameObject.transform.localScale = new Vector3(nextScale, nextScale, 0);
-
         // Fade out
         if (eaten)
         {
-            if (foodColor.a <= 1e-5)
+            if (render.color.a <= 1e-5)
                 Destroy(gameObject);
-
-            foodColor.a -= 1.0f / fadeTime * Time.deltaTime;
-            render.color = foodColor;
+            
+            render.color = Color.Lerp(render.color, Color.clear, Time.deltaTime * 10f);
+            gameObject.transform.localScale *= 1 + Time.deltaTime * 2f;
+        }
+        else
+        {
+            float nextScale = leftTime / totalTime * originScale;
+            gameObject.transform.localScale = new Vector3(nextScale, nextScale, 0);
         }
 
         // Fade in
         if (!fullyShow)
         {
-            foodColor.a += 1.0f / fadeTime * Time.deltaTime;
-            render.color = foodColor;
-            if (foodColor.a >= 1)
+            render.color = Color.Lerp(render.color, foodColor, Time.deltaTime * 5f);
+            if (render.color.a >= 0.9999f)
                 fullyShow = true;
-        }
-        else
-        {
-            fullyShow = true;
         }
     }
 
@@ -74,8 +74,6 @@ public class FoodController : MonoBehaviour
     {
         // When collide with block, game over
         if (other.gameObject.CompareTag("Hero"))
-        {
             Eaten();
-        }
     }
 }
