@@ -6,7 +6,7 @@ public class PutBlock : BaseGame
 {
     public GameObject block;
     public GameObject countdownBar;
-    PutBlockController controller;
+    OneThirdController controller;
     SpriteRenderer countdownBarRenderer;
     Color countdownBarColor;
     int col_count = 3;
@@ -20,7 +20,7 @@ public class PutBlock : BaseGame
     {
         base.Start();
 
-        controller = GetComponent<PutBlockController>();
+        controller = GetComponent<OneThirdController>();
         controller.baseGame = this;
 
         max_block = Mathf.Clamp((int)difficulty + 5, 5, 75);
