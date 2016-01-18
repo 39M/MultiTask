@@ -14,9 +14,12 @@ public class BlockMove : MonoBehaviour
     void Start()
     {
         render = gameObject.GetComponent<SpriteRenderer>();
+
         blockColor = render.color;
         blockColor.a = 0;
         render.color = blockColor;
+        blockColor.a = 1;
+
         deadPos = gameController.offset - Mathf.Abs(gameController.offset) * 0.9f;
     }
 
@@ -35,21 +38,15 @@ public class BlockMove : MonoBehaviour
         // Fade out
         if (transform.position.x < deadPos + fadeTime * moveSpeed)
         {
-            blockColor.a -= 1.0f / fadeTime * Time.deltaTime;
-            render.color = blockColor;
+            render.color = Color.Lerp(render.color, Color.clear, Time.deltaTime * 10f);
         }
 
         // Fade in
         if (!fullyShow)
         {
-            blockColor.a += 1.0f / fadeTime * Time.deltaTime;
-            render.color = blockColor;
-            if (blockColor.a >= 1)
+            render.color = Color.Lerp(render.color, blockColor, Time.deltaTime * 10f);
+            if (render.color.a > 0.9999f)
                 fullyShow = true;
-        }
-        else
-        {
-            fullyShow = true;
         }
     }
 

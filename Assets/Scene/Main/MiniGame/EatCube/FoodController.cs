@@ -7,7 +7,6 @@ public class FoodController : MonoBehaviour
     public float totalTime = 15f;
     SpriteRenderer render;
     Color foodColor;
-    float fadeTime = 0.25f;
     float originScale;
     float leftTime;
     bool fullyShow = false;
