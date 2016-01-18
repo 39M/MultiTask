@@ -116,6 +116,13 @@ public class GamePlayer : MonoBehaviour
         if (gameover)
             return;
 
+        // Give up
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            scoreTimer = Time.time - scoreTimer;
+            fadeOutStart = gameover = true;
+        }
+
         switchTimer += Time.deltaTime;
 
         // Game over 
