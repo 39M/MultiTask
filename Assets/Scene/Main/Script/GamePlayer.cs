@@ -53,7 +53,7 @@ public class GamePlayer : MonoBehaviour
     // Blink time
     int blinkTime = 3;
     // Game over, start fade out flag
-    bool fadeOutStart = false;
+    public bool fadeOutStart = false;
     // Score timer
     float scoreTimer = 0;
 
@@ -140,35 +140,10 @@ public class GamePlayer : MonoBehaviour
 
             if (blinkTime <= 0)
             {
-                if (!fadeOutStart)
-                {
-                    fadeOutStart = true;
-                    LeftCover.transform.Translate(0.03f, 0, 0);
-                    RightCover.transform.Translate(-0.03f, 0, 0);
-
-                    if (!LeftGame)
-                    {
-                        LeftCoverColor.a = 0;
-                        LeftCoverRenderer.color = LeftCoverColor;
-                    }
-
-                    if (!RightGame)
-                    {
-                        RightCoverColor.a = 0;
-                        RightCoverRenderer.color = RightCoverColor;
-                    }
-                }
-
                 // Fade out
                 gameoverTimer += Time.deltaTime;
-                if (gameoverTimer > 0 && gameoverTimer < fadeTime + 0.1f)
-                {
-                    Fade(1);
-                }
-                else if (gameoverTimer >= fadeTime + 0.1f)
-                {
-                    GameOver();
-                }
+                if (gameoverTimer > 0)
+                    fadeOutStart = true;
             }
             else
             {
@@ -362,7 +337,7 @@ public class GamePlayer : MonoBehaviour
     }
 
     // End all games
-    void GameOver()
+    public void GameOver()
     {
         gameover = true;
         EndGame(true);
