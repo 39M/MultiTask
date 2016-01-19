@@ -15,6 +15,10 @@ public class ArrowMove : MonoBehaviour
         direction = hero.transform.position - transform.position;
         // Random rotate between (-15, 15)
         direction = (Quaternion.Euler(0, 0, Random.Range(-15f, 15f)) * direction).normalized;
+
+        // Rotate it self
+        int towards = direction.y < 0 ? -1 : 1;
+        transform.Rotate(new Vector3(0, 0, 90 + towards * Vector3.Angle(direction, new Vector3(1, 0, 0))));        
     }
 
 
@@ -26,7 +30,7 @@ public class ArrowMove : MonoBehaviour
         if (gameController.gameover)
             return;
 
-        transform.Translate(speed * direction * Time.deltaTime);
+        transform.Translate(speed * direction * Time.deltaTime, Space.World);
 
         float posX = transform.position.x;
         float posY = transform.position.y;

@@ -22,8 +22,14 @@ public class MissileMove : MonoBehaviour
             return;
         }
 
+        // Follow hero
         Vector2 direction = heroTransform.position - transform.position;
         rb.velocity = Vector2.MoveTowards(rb.velocity, direction.normalized * speed, flexibility * 2f);
+
+        // Rotate itself
+        transform.rotation = Quaternion.identity;
+        int towards = direction.y < 0 ? -1 : 1;
+        transform.Rotate(new Vector3(0, 0, 90 + towards * Vector3.Angle(direction, new Vector3(1, 0, 0))));
     }
 
     void Update()
