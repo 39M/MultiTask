@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CatchCubeHeroController : OneThirdController
+public class OneThirdHeroController : OneThirdController
 {
     Vector3 position;
 

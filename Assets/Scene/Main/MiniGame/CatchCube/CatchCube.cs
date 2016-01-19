@@ -18,8 +18,8 @@ public class CatchCube : BaseGame
         base.Start();
 
         hero = CreateGameObjectWithRatio(hero, 0.5f, 0.025f);
-        hero.GetComponent<CatchCubeHeroController>().baseGame = this;
-        hero.GetComponent<CatchCubeHeroController>().isLeft = isLeft;
+        hero.GetComponent<OneThirdHeroController>().baseGame = this;
+        hero.GetComponent<OneThirdHeroController>().isLeft = isLeft;
         hero.transform.localScale = new Vector3((endX - startX) * 25f, 20);
     }
 
