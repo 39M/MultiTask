@@ -19,6 +19,7 @@ public class MissileMove : MonoBehaviour
         if (gameController.gameover)
         {
             rb.velocity = Vector3.zero;
+            GetComponent<ParticleSystem>().Pause();
             return;
         }
 

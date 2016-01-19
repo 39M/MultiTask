@@ -28,7 +28,10 @@ public class ArrowMove : MonoBehaviour
             Destroy(gameObject);
 
         if (gameController.gameover)
+        {
+            GetComponent<ParticleSystem>().Pause();
             return;
+        }
 
         transform.Translate(speed * direction * Time.deltaTime, Space.World);
 
