@@ -3,10 +3,14 @@ using System.Collections;
 
 public abstract class BaseController : MonoBehaviour
 {
+	// Base game's position
     public bool isLeft;
+	// Key code
     public KeyCode keyUp, keyDown, keyRight, keyLeft;
+	// The base game the controller belongs to
     public BaseGame baseGame = null;
 
+	// Set control keys
     public virtual void Start()
     {
         if (isLeft)

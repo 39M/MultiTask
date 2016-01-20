@@ -23,7 +23,7 @@ public abstract class BaseGame : MonoBehaviour
     // Key code
     public KeyCode keyUp, keyDown, keyRight, keyLeft;
 
-    // Initialization
+    // Get world edge in screen, calculate offset, set control keys
     public virtual void Start()
     {
         gameover = false;
@@ -82,7 +82,6 @@ public abstract class BaseGame : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     public virtual void Update()
     {
 

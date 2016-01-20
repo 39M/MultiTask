@@ -13,6 +13,7 @@ public abstract class BaseScene : MonoBehaviour
 
     public virtual void Start()
     {
+		// Get screen edge
         Vector3 startVector, endVector;
         startVector = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
         startX = startVector.x;
@@ -21,6 +22,7 @@ public abstract class BaseScene : MonoBehaviour
         endX = endVector.x;
         endY = endVector.y;
 
+		// Set fade cover scale dynamically
         var canvasRect = gameObject.GetComponent<RectTransform>().rect;
         var coverRect = FadeCover.GetComponent<RectTransform>();
         coverRect.sizeDelta = new Vector2(canvasRect.width, canvasRect.height);
@@ -29,6 +31,7 @@ public abstract class BaseScene : MonoBehaviour
 
     public virtual void Update()
     {
+		// Fade in
         if (!fadeInDone)
         {
             if (FadeCoverColor.a <= 0)
@@ -42,6 +45,7 @@ public abstract class BaseScene : MonoBehaviour
             FadeCover.color = FadeCoverColor;
         }
 
+		// Fade out
         if (FadeOutCondition())
         {
             FadeCover.enabled = true;
@@ -53,12 +57,15 @@ public abstract class BaseScene : MonoBehaviour
             FadeCover.color = FadeCoverColor;
         }
 
+		// After fade out
         if (fadeOutDone)
         {
             AfterFadeOut();
         }
     }
 
+	// If return true, fade out
     public abstract bool FadeOutCondition();
+	// Do something after fade out complete
     public abstract void AfterFadeOut();
 }
