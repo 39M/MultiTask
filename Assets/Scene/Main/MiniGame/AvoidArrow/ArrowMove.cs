@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ArrowMove : MonoBehaviour
@@ -7,7 +7,8 @@ public class ArrowMove : MonoBehaviour
     public BaseGame gameController;
     public float speed = 1;
     Vector3 direction;
-
+	ParticleSystem ps;
+	bool hitLimit = false;
 
     void Start()
     {
@@ -18,18 +19,29 @@ public class ArrowMove : MonoBehaviour
 
         // Rotate it self
         int towards = direction.y < 0 ? -1 : 1;
-        transform.Rotate(new Vector3(0, 0, 90 + towards * Vector3.Angle(direction, new Vector3(1, 0, 0))));        
-    }
+        transform.Rotate(new Vector3(0, 0, 90 + towards * Vector3.Angle(direction, new Vector3(1, 0, 0))));
 
+		ps = GetComponent<ParticleSystem>();
+    }
 
     void Update()
     {
         if (gameController.destroy)
             Destroy(gameObject);
 
+		if (hitLimit)
+		{
+			ps.enableEmission = false;
+			GetComponent<SpriteRenderer>().enabled = false;
+			GetComponent<BoxCollider2D>().enabled = false;
+			GetComponent<Rigidbody2D>().Sleep();
+			Destroy(gameObject, 0.5f);
+			return;
+		}
+
         if (gameController.gameover)
         {
-            GetComponent<ParticleSystem>().Pause();
+            ps.Pause();
             return;
         }
 
@@ -38,8 +50,8 @@ public class ArrowMove : MonoBehaviour
         float posX = transform.position.x;
         float posY = transform.position.y;
         if (posX < gameController.startX || posX > gameController.endX)
-            Destroy(gameObject);
+			hitLimit = true;
         if (posY < gameController.startY || posY > gameController.endY)
-            Destroy(gameObject);
+			hitLimit = true;
     }
 }

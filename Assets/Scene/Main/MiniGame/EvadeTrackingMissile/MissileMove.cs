@@ -7,11 +7,14 @@ public class MissileMove : MonoBehaviour
     public Transform heroTransform;
     public float flexibility;
     public float speed;
-    Rigidbody2D rb;
+	Rigidbody2D rb;
+	ParticleSystem ps;
+	bool hitLimit = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+		ps = GetComponent<ParticleSystem>();
     }
 
     void FixedUpdate()
@@ -19,9 +22,19 @@ public class MissileMove : MonoBehaviour
         if (gameController.gameover)
         {
             rb.velocity = Vector3.zero;
-            GetComponent<ParticleSystem>().Pause();
+            ps.Pause();
             return;
         }
+
+		if (hitLimit)
+		{
+			ps.enableEmission = false;
+			GetComponent<SpriteRenderer>().enabled = false;
+			GetComponent<BoxCollider2D>().enabled = false;
+			GetComponent<Rigidbody2D>().Sleep();
+			Destroy(gameObject, 0.5f);
+			return;
+		}
 
         // Follow hero
         Vector2 direction = heroTransform.position - transform.position;
@@ -44,6 +57,6 @@ public class MissileMove : MonoBehaviour
         if (other.gameObject.CompareTag("Hero"))
             gameController.gameover = true;
         if (other.gameObject.CompareTag("Limit"))
-            Destroy(gameObject);
+			hitLimit = true;
     }
 }
